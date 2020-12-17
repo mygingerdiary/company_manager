@@ -26,6 +26,16 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
     <form action="zaloguj.php" method="post" class="pola_logowania">
         <input type="text" placeholder="login..." name="login" required>
         <input type="password" placeholder="hasło..." name="haslo" required>
+
+        <div>
+            <input type='radio' name='radio' value='1' id="admin"/>
+            <label for="admin">administrator</label>
+            <input type='radio' name='radio' value='2' id="pracownik"/>
+            <label for="pracownik">pracownik</label>
+            <input type='radio' name='radio' value='3' id="auditor"/>
+            <label for="auditor">auditor</label>
+        </div>
+
         <button type="submit">Zaloguj się</button>
 
         <?php

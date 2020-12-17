@@ -30,17 +30,40 @@ else
         $ilu_userow = $rezultat->num_rows;
         if ($ilu_userow > 0)
         {
-            $_SESSION['zalogowany'] = true;
-
             $wiersz = $rezultat->fetch_assoc();
+            $_SESSION['id_roli'] = $wiersz['id_roli'];
             $_SESSION['id'] = $wiersz['id'];
             $_SESSION['login'] = $wiersz['login'];
             $_SESSION['imie'] = $wiersz['imie'];
             $_SESSION['nazwisko'] = $wiersz['nazwisko'];
 
-            unset($_SESSION['blad']);
-            $rezultat->free_result();
-            header('Location: panel.php');
+            if ($_POST['radio'] == 1 && $_SESSION['id_roli'] == 1)
+            {
+                $_SESSION['zalogowany'] = true;
+                header('Location: panel.php');
+                unset($_SESSION['blad']);
+                $rezultat->free_result();
+            }
+            elseif ($_POST['radio'] == 2 && $_SESSION['id_roli'] == 2)
+            {
+                $_SESSION['zalogowany'] = true;
+                header('Location: panel.php');
+                unset($_SESSION['blad']);
+                $rezultat->free_result();
+            }
+            elseif ($_POST['radio'] == 3 && $_SESSION['id_roli'] == 3)
+            {
+                $_SESSION['zalogowany'] = true;
+                header('Location: panel.php');
+                unset($_SESSION['blad']);
+                $rezultat->free_result();
+            }
+            else
+            {
+                $_SESSION['blad'] = '<span style="color:red">Nie posiadasz uprawnień!</span>';
+                header('Location: index.php');
+            }
+
         }
         else
         {

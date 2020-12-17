@@ -13,6 +13,8 @@
     <form action="wyloguj.php" method="post">
         <button type="submit">Wyloguj się</button>
     </form>
+    stwórz użytkownika
+    katalog faktur
 </main>
 </body>
 </html>
