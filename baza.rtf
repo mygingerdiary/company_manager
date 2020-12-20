@@ -10,7 +10,7 @@
 -- https://www.phpmyadmin.net/\
 --\
 -- Host: localhost:8889\
--- Generation Time: Dec 15, 2020 at 05:38 PM\
+-- Generation Time: Dec 20, 2020 at 05:25 PM\
 -- Server version: 5.7.26\
 -- PHP Version: 7.4.2\
 \
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";\
 --\
 -- Database: `company_manager`\
 --\
+\
+DELIMITER $$\
+--\
+-- Procedures\
+--\
+CREATE DEFINER=`root`@`localhost` PROCEDURE `duzeImieNazwisko` ()  BEGIN\
+	 UPDATE uzytkownicy SET \
+     imie=CONCAT(UPPER(LEFT(imie, 1)), RIGHT(imie, LENGTH(imie)-1));\
+     UPDATE uzytkownicy SET\
+     nazwisko=CONCAT(UPPER(LEFT(nazwisko, 1)), RIGHT(nazwisko, LENGTH(nazwisko)-1));\
+END$$\
+\
+DELIMITER ;\
 \
 -- --------------------------------------------------------\
 \
@@ -31,7 +44,8 @@ CREATE TABLE `dokumenty` (\
   `id` int(11) NOT NULL,\
   `data` date NOT NULL,\
   `l_stron` int(11) NOT NULL,\
-  `notatki` text NOT NULL\
+  `notatki` text NOT NULL,\
+  `zdjecie_dokumentu` blob\
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
 \
 -- --------------------------------------------------------\
@@ -47,8 +61,29 @@ CREATE TABLE `faktury` (\
   `vat` int(11) NOT NULL,\
   `brutto` decimal(11,0) NOT NULL,\
   `waluta` int(11) NOT NULL,\
-  `kontrahent_id` int(11) NOT NULL\
+  `kontrahent_id` int(11) NOT NULL,\
+  `zdjecie_faktury` blob,\
+  `rodzaj` int(11) NOT NULL\
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+-- --------------------------------------------------------\
+\
+--\
+-- Table structure for table `kategorie_faktur`\
+--\
+\
+CREATE TABLE `kategorie_faktur` (\
+  `id` int(11) NOT NULL,\
+  `nazwa` text NOT NULL\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;\
+\
+--\
+-- Dumping data for table `kategorie_faktur`\
+--\
+\
+INSERT INTO `kategorie_faktur` (`id`, `nazwa`) VALUES\
+(1, 'sprzedaz'),\
+(2, 'zakup');\
 \
 -- --------------------------------------------------------\
 \
@@ -144,7 +179,8 @@ CREATE TABLE `uzytkownicy` (\
 --\
 \
 INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `login`, `haslo`, `id_roli`) VALUES\
-(1, 'Kokos', 'Ananasowy', 'kokosik123', 'kokosik123', 2);\
+(1, 'Kokos', 'Asowy', 'kokosik123', 'kokosik123', 2),\
+(4, 'Adam', 'Kowalski', 'kadam123', 'kadam123', 1);\
 \
 -- --------------------------------------------------------\
 \
@@ -180,7 +216,14 @@ ALTER TABLE `dokumenty`\
 ALTER TABLE `faktury`\
   ADD PRIMARY KEY (`id`),\
   ADD KEY `kontrahent_id` (`kontrahent_id`),\
-  ADD KEY `waluta` (`waluta`);\
+  ADD KEY `waluta` (`waluta`),\
+  ADD KEY `rodzaj` (`rodzaj`);\
+\
+--\
+-- Indexes for table `kategorie_faktur`\
+--\
+ALTER TABLE `kategorie_faktur`\
+  ADD PRIMARY KEY (`id`);\
 \
 --\
 -- Indexes for table `kontrahenci`\
@@ -241,6 +284,12 @@ ALTER TABLE `faktury`\
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;\
 \
 --\
+-- AUTO_INCREMENT for table `kategorie_faktur`\
+--\
+ALTER TABLE `kategorie_faktur`\
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;\
+\
+--\
 -- AUTO_INCREMENT for table `kontrahenci`\
 --\
 ALTER TABLE `kontrahenci`\
@@ -268,7 +317,7 @@ ALTER TABLE `sprzety`\
 -- AUTO_INCREMENT for table `uzytkownicy`\
 --\
 ALTER TABLE `uzytkownicy`\
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;\
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;\
 \
 --\
 -- AUTO_INCREMENT for table `waluty`\
@@ -285,7 +334,8 @@ ALTER TABLE `waluty`\
 --\
 ALTER TABLE `faktury`\
   ADD CONSTRAINT `faktury_ibfk_1` FOREIGN KEY (`kontrahent_id`) REFERENCES `kontrahenci` (`id`),\
-  ADD CONSTRAINT `faktury_ibfk_2` FOREIGN KEY (`waluta`) REFERENCES `waluty` (`id`);\
+  ADD CONSTRAINT `faktury_ibfk_2` FOREIGN KEY (`waluta`) REFERENCES `waluty` (`id`),\
+  ADD CONSTRAINT `faktury_ibfk_3` FOREIGN KEY (`rodzaj`) REFERENCES `kategorie_faktur` (`id`);\
 \
 --\
 -- Constraints for table `licencje`\
