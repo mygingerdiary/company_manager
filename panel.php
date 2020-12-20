@@ -10,11 +10,19 @@
 </head>
 <body>
 <main>
-    <form action="wyloguj.php" method="post">
-        <button type="submit">Wyloguj się</button>
-    </form>
-    stwórz użytkownika
-    katalog faktur
+
+        <form action="wyloguj.php" method="post">
+            <button type="submit">Wyloguj się</button>
+        </form>
+        <div class="panel">
+            <button onclick="window.location.href = 'addUserPanel.php';"> stwórz użytkownika </button>
+            <button> katalog faktur sprzedaży </button>
+            <button> katalog faktur zakupu </button>
+            <button> podsystem dokumentów </button>
+            <button> podsystem katalogów sprzętu </button>
+            <button> podsystem licecji </button>
+        </div>
+
 </main>
 </body>
 </html>
