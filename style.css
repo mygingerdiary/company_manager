@@ -15,68 +15,6 @@ body
 {
     color: darkslategrey;
     font-family: 'Arbutus', cursive;
-    font-size: 60px;
+    font-size: 160px;
 }
 
-#login_panel
-{
-    display: flex;
-    flex-direction: column;
-    background-color: #ACE5D8;
-    justify-content: flex-start;
-    align-items: center;
-    height: 500px;
-    width: 50%;
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 113px 16px rgba(122,122,122,1);
-    -moz-box-shadow: 0px 0px 113px 16px rgba(122,122,122,1);
-    box-shadow: 0px 0px 113px 16px rgba(122,122,122,1);
-}
-
-.pola_logowania
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-input[type=text],
-input[type=password]
-{
-    font-size: 20px;
-    margin: 20px;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    outline: none;
-    transition: transform 0.3s ease-in-out;
-}
-
-input[type=text]:focus,
-input[type=password]:focus
-{
-    transform: scale(1.1);
-}
-
-button[type=submit]
-{
-    font-size: 20px;
-    height: 40px;
-    width: 150px;
-    border-radius: 5px;
-    margin: 20px;
-    padding: 5px;
-    cursor: pointer;
-    background-color: darkslategrey;
-    color: white;
-    border: none;
-    outline: none;
-    transition: transform 0.3s ease-in-out;
-}
-
-button[type=submit]:hover
-{
-    background-color: #3f5f5f;
-    transform: scale(1.1);
-}
