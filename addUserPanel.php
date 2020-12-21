@@ -128,6 +128,12 @@ if (isset($_POST['imie']))
             if ($ok == true)
             {
                 //walidacja się powiodła
+                $imie = strtolower($imie);
+                $imie = ucfirst($imie);
+
+                $nazwisko = strtolower($nazwisko);
+                $nazwisko = ucfirst($nazwisko);
+
                 if ($connection->query("INSERT INTO uzytkownicy VALUES(NULL, '$imie', '$nazwisko', '$login', '$haslo_hash', '$rola')"))
                 {
                     $_SESSION['rejestracja'] = true;
