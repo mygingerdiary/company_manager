@@ -1,10 +1,12 @@
 <?php
+
 session_start();
 
 if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
     header('Location: panel.php');
     exit(); //opuszczamy plik, nie wykonujemy dalszej czesci kodu
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,11 +30,11 @@ if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == true)) {
         <input type="password" placeholder="hasło..." name="haslo" required>
 
         <div>
-            <input type='radio' name='radio' value='1' id="admin"/>
+            <input type='radio' name='rola' value='1' id="admin"/>
             <label for="admin">administrator</label>
-            <input type='radio' name='radio' value='2' id="pracownik"/>
+            <input type='radio' name='rola' value='2' id="pracownik"/>
             <label for="pracownik">pracownik</label>
-            <input type='radio' name='radio' value='3' id="auditor"/>
+            <input type='radio' name='rola' value='3' id="auditor"/>
             <label for="auditor">auditor</label>
         </div>
 
