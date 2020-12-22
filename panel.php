@@ -18,7 +18,7 @@
             <button onclick="window.location.href = 'addUserPanel.php';"> stwórz użytkownika </button>
             <button> katalog faktur sprzedaży </button>
             <button> katalog faktur zakupu </button>
-            <button> podsystem dokumentów </button>
+            <button onclick="window.location.href = 'documentsSystem.php';"> podsystem dokumentów </button>
             <button> podsystem katalogów sprzętu </button>
             <button> podsystem licecji </button>
         </div>
