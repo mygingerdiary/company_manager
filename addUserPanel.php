@@ -2,6 +2,13 @@
 
 session_start();
 
+function mb_ucfirst($string, $encoding)
+{
+    $firstChar = mb_substr($string, 0, 1, $encoding);
+    $then = mb_substr($string, 1, null, $encoding);
+    return mb_strtoupper($firstChar, $encoding) . $then;
+}
+
 if (isset($_POST['imie']))
 {
     //udana walidacja
@@ -17,7 +24,7 @@ if (isset($_POST['imie']))
         $_SESSION['e_imie'] = "Wprowadź imię";
     }
 
-    $sprawdz = '/^[a-zA-ZąęćżźńłóśĄĆĘŁŃÓŚŹŻ\s]+$/';
+    $sprawdz = '/^[a-zA-ZąęćżźńłóśĄĆĘŁŃÓŚŹŻ]+$/';
 
     //alfabet
     if( preg_match($sprawdz, $imie) )
@@ -136,8 +143,11 @@ if (isset($_POST['imie']))
             if ($ok == true)
             {
                 //walidacja się powiodła
-                $imie = ucfirst(mb_strtolower($imie, 'UTF-8'));
-                $nazwisko = ucfirst(mb_strtolower($nazwisko, 'UTF-8'));
+                $imie = mb_strtolower($imie, 'UTF-8');
+                $imie = mb_ucfirst($imie, 'UTF-8');
+
+                $nazwisko = mb_strtolower($nazwisko, 'UTF-8');
+                $nazwisko = mb_ucfirst($nazwisko, 'UTF-8');
 
                 if ($connection->query("INSERT INTO uzytkownicy VALUES(NULL, '$imie', '$nazwisko', '$login', '$haslo_hash', '$rola')"))
                 {
