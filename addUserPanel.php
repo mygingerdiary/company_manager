@@ -17,8 +17,13 @@ if (isset($_POST['imie']))
         $_SESSION['e_imie'] = "Wprowadź imię";
     }
 
+    $sprawdz = '/^[a-zA-ZąęćżźńłóśĄĆĘŁŃÓŚŹŻ\s]+$/';
+
     //alfabet
-    if( ctype_alpha($imie) == false )
+    if( preg_match($sprawdz, $imie) )
+    {
+    }
+    else
     {
         $ok = false;
         $_SESSION['e_imie'] = "Imię powinno zawierać same litery";
@@ -35,7 +40,10 @@ if (isset($_POST['imie']))
     }
 
     //alfabet
-    if( ctype_alpha($nazwisko) == false )
+    if( preg_match($sprawdz, $imie) )
+    {
+    }
+    else
     {
         $ok = false;
         $_SESSION['e_nazwisko'] = "Nazwisko powinno zawierać same litery";
@@ -128,11 +136,8 @@ if (isset($_POST['imie']))
             if ($ok == true)
             {
                 //walidacja się powiodła
-                $imie = strtolower($imie);
-                $imie = ucfirst($imie);
-
-                $nazwisko = strtolower($nazwisko);
-                $nazwisko = ucfirst($nazwisko);
+                $imie = ucfirst(mb_strtolower($imie, 'UTF-8'));
+                $nazwisko = ucfirst(mb_strtolower($nazwisko, 'UTF-8'));
 
                 if ($connection->query("INSERT INTO uzytkownicy VALUES(NULL, '$imie', '$nazwisko', '$login', '$haslo_hash', '$rola')"))
                 {
@@ -142,12 +147,14 @@ if (isset($_POST['imie']))
                     $_SESSION['r_login'] = $login;
                     $_SESSION['r_haslo'] = $haslo1;
                     $_SESSION['r_rola'] = $rola;
+
                     header("Location: podsumowanie.php");
                 }
                 else
                 {
                     throw new Exception($connection->error);
                 }
+
             }
 
             $connection->close();
