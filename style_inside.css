@@ -15,7 +15,6 @@ body
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 #rejestracja > form > input
@@ -26,4 +25,35 @@ body
 #rejestracja > form > div > input
 {
     margin: 10px;
+}
+
+.error
+{
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#haslo
+{
+    visibility: hidden;
+}
+
+#podsumowanie
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#podsumowanie > p
+{
+    margin: 10px;
+}
+
+a
+{
+    margin-top: 40px;
+    font-size: 20px;
+    color: #ACE5D8;
 }
