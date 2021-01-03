@@ -4,13 +4,15 @@ body
     color: whitesmoke;
 }
 
-#rejestracja
+#rejestracja,
+.add-invoice-panel
 {
     margin-top: 50px;
     text-align: center;
 }
 
-#rejestracja > form
+#rejestracja > form,
+.add-invoice-panel > form
 {
     display: flex;
     flex-direction: column;
@@ -18,12 +20,21 @@ body
     justify-content: center;
 }
 
-#rejestracja > form > input
+#rejestracja > form > input,
+.add-invoice-panel > form > input
 {
     margin: 10px;
 }
 
-#rejestracja > form > div > input
+#rejestracja > form > div > input,
+.add-invoice-panel > form > div > input
 {
     margin: 10px;
+}
+
+.error
+{
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
