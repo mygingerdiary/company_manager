@@ -108,9 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($dokument_result->num_rows > 0) {
                         while ($dokument_data = $dokument_result->fetch_assoc()) {
-                            $_SESSION['rzad'] = array();
                             array_push($_SESSION['rzad'], $dokument_data['id']);
-                            echo "<p>Skan faktury: " . $dokument_data['id'] . ", " . $dokument_data['data'] . ", " . $dokument_data['l_stron'] . ", " . $dokument_data['notatki'] . ", " . '<form method="post" action="../showScan.php"><input type="submit" name="' . $dokument_data['id'] . '" value="otwórz skan"></form>' . "</p>";
+                            echo "<p>Skan faktury: " . $dokument_data['id'] . ", " . $dokument_data['data'] . ", " . $dokument_data['l_stron'] . ", " . $dokument_data['notatki'] . ", " . '<form method="post" action="../showSingleScan.php?id=' . $dokument_id . '"><input type="submit" name="' . $dokument_data['id'] . '" value="otwórz skan"></form>' . "</p>";
                         }
                     }
 

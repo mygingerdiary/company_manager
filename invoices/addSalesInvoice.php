@@ -16,7 +16,8 @@ const REMEMBER_BRUTTO = 'remember_brutto';
 const REMEMBER_WALUTA = 'remember_waluta';
 const REMEMBER_NAZWA_KONTRAHENTA = 'remember_nazwa_kontrahenta';
 const REMEMBER_VAT_KONTRAHENTA = 'remember_vat_kontrahenta';
-const REMEMBER_ID_DOKUMENTU = 'remember_id_dokumentu';
+
+const ADDED_INVOICE_ID = 'added_invoice_id';
 
 require_once('../connect.php');
 mysqli_report(MYSQLI_REPORT_STRICT);
@@ -126,8 +127,6 @@ if (isset($_POST['nr_faktury'])) {
     $_SESSION[REMEMBER_WALUTA] = $waluta;
     $_SESSION[REMEMBER_NAZWA_KONTRAHENTA] = $nazwa_kontrahenta;
     $_SESSION[REMEMBER_VAT_KONTRAHENTA] = $vat_kontrahenta;
-    $_SESSION[REMEMBER_ID_DOKUMENTU] = $id_dokumentu;
-
 
     try {
         if (!check_if_vault_exists($conn, $waluta)) {
@@ -140,9 +139,16 @@ if (isset($_POST['nr_faktury'])) {
 
             if ($conn->query("INSERT INTO faktury " .
                 "(nr_faktury, netto, vat, brutto, waluta, kontrahent_id, id_dokumentu, rodzaj) " .
-                "VALUES('$nr_faktury', $netto, $vat, $brutto, $waluta_id, $kontrahent_id, $id_dokumentu, $rodzaj);")) {
+                "VALUES('$nr_faktury', $netto, $vat, $brutto, $waluta_id, $kontrahent_id, NULL, $rodzaj);")) {
 
-                header("Location: salesInvoicePanel.php");
+                $id_select_query = "SELECT id FROM faktury WHERE nr_faktury=$nr_faktury AND kontrahent_id=$kontrahent_id LIMIT 1";
+                $id_result = mysqli_query($conn, $id_select_query);
+                if ($id_result->num_rows > 0) {
+                    while ($data = $id_result->fetch_assoc()) {
+                        $_SESSION[ADDED_INVOICE_ID] = $data['id'];
+                    }
+                }
+                header("Location: chooseDocument.php");
             } else {
                 throw new Exception($conn->error);
             }
@@ -200,7 +206,7 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 <body>
 <div class="add-invoice-panel">
     <h2>Dodaj fakturę</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post">
         <p>
             Numer faktury:
             <input type="text" name="nr_faktury" placeholder="nr faktury" value="<?php
@@ -320,13 +326,6 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
             unset($_SESSION[ERROR_VAT_KONTRAHENTA]);
         }
         ?>
-
-        <p>
-            Id dokumentu:
-            <input type="text" name="id_dokumentu" placeholder="id_dokumentu" value="<?php
-            echo $_SESSION[REMEMBER_ID_DOKUMENTU];
-            ?>">
-        </p>
 
         <button type="submit">Dodaj</button>
     </form>
