@@ -3,7 +3,9 @@
 session_start();
 $id = $_GET['id'];
 
-$db = mysqli_connect("localhost", "root", "admin", "company_manager");
+require_once('connect.php');
+$db = new mysqli($host, $db_user, $db_password, $db_name);
+
 $query = "SELECT zdjecie_dokumentu FROM dokumenty WHERE substr(Name, -4)='.pdf'";
 
 $sql2 = @$db->query("SELECT zdjecie_dokumentu FROM dokumenty WHERE id=$id");

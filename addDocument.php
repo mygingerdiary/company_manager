@@ -2,8 +2,11 @@
 
 session_start();
 
-$db = mysqli_connect("localhost", "root", "admin", "company_manager");
+require_once('connect.php');
+mysqli_report(MYSQLI_REPORT_STRICT);
+$db = new mysqli($host, $db_user, $db_password, $db_name);
 $msg = "";
+
 /*
 if(isset($_POST['upload']))
 {

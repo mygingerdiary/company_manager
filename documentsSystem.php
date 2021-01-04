@@ -42,7 +42,8 @@ session_start();
         <th>Skany</th>
     </tr>
     <?php
-    $db = mysqli_connect("localhost", "root", "admin", "company_manager");
+    require_once('connect.php');
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
 
     if(!isset($_POST['submit'])) {
         $_SESSION['rzad'] = array();
