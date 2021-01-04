@@ -7,7 +7,8 @@ if ((!isset($_POST['login'])) || (!isset($_POST['haslo'])))
     exit();
 }
 
-$polaczenie = @new mysqli("localhost:8889", "root", "root","company_manager");
+require_once('connect.php');
+$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
 
 if ($polaczenie->connect_errno != 0)
 {

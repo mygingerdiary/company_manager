@@ -287,12 +287,12 @@ if (isset($_POST['imie']))
         <p> Wybierz rolę użytkownika: </p>
         <div id="typeOfUser">
             <input type='radio' name='rola' value='1' id="admin" <?php
-                if(isset($_SESSION['fr_rola']) && $_SESSION['fr_rola'] == 1)
-                {
-                    echo "checked";
-                    unset($_SESSION['fr_rola']);
-                }
-                ?> />
+            if(isset($_SESSION['fr_rola']) && $_SESSION['fr_rola'] == 1)
+            {
+                echo "checked";
+                unset($_SESSION['fr_rola']);
+            }
+            ?> />
             <label for="admin">administrator</label>
             <input type='radio' name='rola' value='2' id="pracownik" <?php
             if(isset($_SESSION['fr_rola']) && $_SESSION['fr_rola'] == 2)
