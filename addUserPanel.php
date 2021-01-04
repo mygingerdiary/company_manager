@@ -2,6 +2,13 @@
 
 session_start();
 
+function mb_ucfirst($string, $encoding)
+{
+    $firstChar = mb_substr($string, 0, 1, $encoding);
+    $then = mb_substr($string, 1, null, $encoding);
+    return mb_strtoupper($firstChar, $encoding) . $then;
+}
+
 if (isset($_POST['imie']))
 {
     //udana walidacja
@@ -17,8 +24,13 @@ if (isset($_POST['imie']))
         $_SESSION['e_imie'] = "Wprowadź imię";
     }
 
+    $sprawdz = '/^[a-zA-ZąęćżźńłóśĄĆĘŁŃÓŚŹŻ]+$/';
+
     //alfabet
-    if( ctype_alpha($imie) == false )
+    if( preg_match($sprawdz, $imie) )
+    {
+    }
+    else
     {
         $ok = false;
         $_SESSION['e_imie'] = "Imię powinno zawierać same litery";
@@ -35,7 +47,10 @@ if (isset($_POST['imie']))
     }
 
     //alfabet
-    if( ctype_alpha($nazwisko) == false )
+    if( preg_match($sprawdz, $imie) )
+    {
+    }
+    else
     {
         $ok = false;
         $_SESSION['e_nazwisko'] = "Nazwisko powinno zawierać same litery";
@@ -128,11 +143,11 @@ if (isset($_POST['imie']))
             if ($ok == true)
             {
                 //walidacja się powiodła
-                $imie = strtolower($imie);
-                $imie = ucfirst($imie);
+                $imie = mb_strtolower($imie, 'UTF-8');
+                $imie = mb_ucfirst($imie, 'UTF-8');
 
-                $nazwisko = strtolower($nazwisko);
-                $nazwisko = ucfirst($nazwisko);
+                $nazwisko = mb_strtolower($nazwisko, 'UTF-8');
+                $nazwisko = mb_ucfirst($nazwisko, 'UTF-8');
 
                 if ($connection->query("INSERT INTO uzytkownicy VALUES(NULL, '$imie', '$nazwisko', '$login', '$haslo_hash', '$rola')"))
                 {
@@ -142,12 +157,14 @@ if (isset($_POST['imie']))
                     $_SESSION['r_login'] = $login;
                     $_SESSION['r_haslo'] = $haslo1;
                     $_SESSION['r_rola'] = $rola;
+
                     header("Location: podsumowanie.php");
                 }
                 else
                 {
                     throw new Exception($connection->error);
                 }
+
             }
 
             $connection->close();
@@ -270,12 +287,12 @@ if (isset($_POST['imie']))
         <p> Wybierz rolę użytkownika: </p>
         <div id="typeOfUser">
             <input type='radio' name='rola' value='1' id="admin" <?php
-                if(isset($_SESSION['fr_rola']) && $_SESSION['fr_rola'] == 1)
-                {
-                    echo "checked";
-                    unset($_SESSION['fr_rola']);
-                }
-                ?> />
+            if(isset($_SESSION['fr_rola']) && $_SESSION['fr_rola'] == 1)
+            {
+                echo "checked";
+                unset($_SESSION['fr_rola']);
+            }
+            ?> />
             <label for="admin">administrator</label>
             <input type='radio' name='rola' value='2' id="pracownik" <?php
             if(isset($_SESSION['fr_rola']) && $_SESSION['fr_rola'] == 2)
