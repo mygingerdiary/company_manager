@@ -2,13 +2,14 @@
 
 session_start();
 
-$db = mysqli_connect("localhost", "root", "", "company_manager2");
+require_once('connect.php');
+$db = new mysqli($host, $db_user, $db_password, $db_name);
 $query="SELECT zdjecie_dokumentu FROM dokumenty WHERE substr(Name, -4)='.pdf'";
 
 for($i = 0 ; $i < count($_SESSION['rzad']) ; $i++) {
     if (isset($_POST[$_SESSION['rzad'][$i]])) {
-        $rezerwacja = $_SESSION['rzad'][$i];
-        $sql2 = @$db->query("SELECT zdjecie_dokumentu FROM dokumenty WHERE id=$rezerwacja");
+        $ktore = $_SESSION['rzad'][$i];
+        $sql2 = @$db->query("SELECT zdjecie_dokumentu FROM dokumenty WHERE id=$ktore");
 
         while ($data = $sql2->fetch_assoc()) {
             if (substr($data['zdjecie_dokumentu'], -4) == ".pdf") {
