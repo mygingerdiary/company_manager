@@ -4,43 +4,31 @@ session_start();
 
 require_once('connect.php');
 $db = new mysqli($host, $db_user, $db_password, $db_name);
-$msg = "";
 
-/*
-if(isset($_POST['upload']))
-{
-    $imageName=mysqli_real_escape_string($db,$_FILES["image"]["name"]);
-    $imageData=mysqli_real_escape_string($db,base64_encode(file_get_contents($_FILES["image"]["tmp_name"])));
-    $imageType=mysqli_real_escape_String($db,$_FILES["image"]["type"]);
-    $image = 'data:image/' . $imageType . ';base64,' . $imageData;
-
-    if(substr($imageType,0,5) =="image") //)if its image it will be image
-    {
-        $image_text = mysqli_real_escape_string($db, $_POST['notatki']);
-        $data = $_POST['data'];
-        $l_stron = $_POST['l_stron'];
-        $sql = "INSERT INTO dokumenty VALUES (NULL,'$data','$l_stron','$image_text', '$imageData')";
-        mysqli_query($db, $sql);
-        header('Location: documentsSystem.php');
+for($i = 0 ; $i < count($_SESSION['rzad']) ; $i++) {
+    if (isset($_POST[$_SESSION['rzad'][$i]])) {
+        $ktore = $_SESSION['rzad'][$i];
+        $_SESSION["myvar"] = $ktore;
 
     }
-    else
-    {
-        echo "not working";
-    }
+}
 
-}*/
+//echo "<script>console.log('$$ktore');</script>";
+
 if (isset($_POST['upload'])) {
+
     $ok=true;
     $image = $_FILES['image']['name'];
     $image_text = mysqli_real_escape_string($db, $_POST['notatki']);
     $target = "images/".basename($image);
     $data = $_POST['data'];
     $l_stron = $_POST['l_stron'];
-    $sql = "INSERT INTO dokumenty VALUES (NULL,'$data','$l_stron','$image_text', '$image')";
+    $ktore=$_SESSION["myvar"];
+    $sql = "UPDATE dokumenty SET data='$data',l_stron='$l_stron',notatki='$image_text', zdjecie_dokumentu='$image' WHERE id=$ktore";
     if(substr($image, -4) == ".pdf" || substr($image, -4) == ".jpg")
-    { mysqli_query($db, $sql);
-    header('Location: documentsSystem.php');}
+    {
+        if(mysqli_query($db, $sql))
+        {header('Location: documentsSystem.php');}}
     else
     {
 
@@ -48,11 +36,6 @@ if (isset($_POST['upload'])) {
     }
 
 }
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +48,7 @@ if (isset($_POST['upload'])) {
 <body>
 <div id="dodaj_dokument" >
     <h1> Dodawanie nowego dokumentu </h1>
-    <form method="POST" action="addDocument.php" enctype="multipart/form-data">
+    <form method="POST" action="editDocument.php" enctype="multipart/form-data">
         <input type="file" name="image" required>
         <?php
         if(isset($_SESSION['e_plik']))
@@ -78,16 +61,20 @@ if (isset($_POST['upload'])) {
         <input type="number" name="l_stron" placeholder="liczba stron" min="1" step="1" required>
         <textarea rows="4" cols="30" name="notatki" placeholder="...">
 </textarea>
-        <button type="submit" name="upload">Dodaj</button>
+        <button type="submit" name="upload">Zaktualizuj</button>
     </form>
-   <!---
-    <img src="showimages.php?id=3">
-    -->
+    <!---
+     <img src="showimages.php?id=3">
+     -->
     <a href="documentsSystem.php">Cofnij</a>
     <br>
     <a href="panel.php">Wróc do panelu</a>
 
 </div>
+
+<form method="POST">
+    <input type="hidden" name="word" value="<?php $ktore; ?>" />
+</form>
 <!--
 <?php
 
@@ -101,4 +88,4 @@ $image_src2 = $row['zdjecie_dokumentu'];
 -->
 
 </body>
-</html>
+
