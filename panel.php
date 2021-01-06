@@ -19,7 +19,7 @@
         <button onclick="window.location.href = 'invoices/salesInvoicePanel.php';"> katalog faktur sprzedaży</button>
         <button> katalog faktur zakupu</button>
         <button onclick="window.location.href = 'documentsSystem.php';"> podsystem dokumentów</button>
-        <button> podsystem katalogów sprzętu</button>
+        <button onclick="window.location.href = 'devicesCatalogPanel.php';"> podsystem katalogów sprzętu</button>
         <button> podsystem licecji</button>
     </div>
 

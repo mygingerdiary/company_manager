@@ -192,7 +192,7 @@ if (isset($_POST['imie']))
 
 <body>
 
-<div id="rejestracja">
+<div id="panel">
 
     <h1> Dodawanie nowego użytkownika systemu </h1>
 
