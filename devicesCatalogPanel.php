@@ -5,14 +5,13 @@ session_start();
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 $select_query = "SELECT * FROM sprzety";
 
-
 if (isset($_POST['napis'])  && isset($_POST['search-by'])) {
     $napis = $_POST['napis'];
     $search_by = $_POST['search-by'];
 
     if ($search_by == 'search-by-inwentarzowy') {
         if (!is_numeric($napis) && strlen($napis) > 0) {
-            $_SESSION['e_wyszukiwanie'] = "Numer inwentarzowy zawiera tylko liczby ";
+            $_SESSION['e_inwentarzowy'] = "Numer inwentarzowy zawiera tylko liczby ";
             $select_query ="SELECT * FROM sprzety WHERE 1 = 0";
         }
     }
@@ -23,6 +22,12 @@ if (isset($_POST['napis'])  && isset($_POST['search-by'])) {
         }
     }
 }
+if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['napis']) > 0 && isset($_POST['napis']) ) {
+
+    $_SESSION['e_wyszukiwanie'] = "Nie wybrano po czym wyszukiwać ";
+    $select_query ="SELECT * FROM sprzety WHERE 1 = 0";
+
+    }
 
 
 if (isset($_POST['submit']) && isset($_POST['search-by']) && !isset($_SESSION['e_wyszukiwanie'] )) {
@@ -42,7 +47,7 @@ if (isset($_POST['submit']) && isset($_POST['search-by']) && !isset($_SESSION['e
     }
 
 }
-if (isset($_POST['submit']) && !isset($_POST['search-by'])) {
+if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['napis']) == 0 && isset($_POST['napis'])) {
 
 
         $select_query = "SELECT * FROM sprzety";
@@ -109,10 +114,10 @@ if (isset($_POST['submit']) && !isset($_POST['search-by'])) {
     }
 
 
-    if(isset($_SESSION['e_wyszukiwanie']))
+    if(isset($_SESSION['e_inwentarzowy']))
     {
-        echo '<div class="error">'.$_SESSION['e_wyszukiwanie'].'</div>';
-        unset($_SESSION['e_wyszukiwanie']);
+        echo '<div class="error">'.$_SESSION['e_inwentarzowy'].'</div>';
+        unset($_SESSION['e_inwentarzowy']);
     }
 
     if(isset($_SESSION['e_nr_seryjny']))
@@ -120,7 +125,15 @@ if (isset($_POST['submit']) && !isset($_POST['search-by'])) {
         echo '<div class="error">'.$_SESSION['e_nr_seryjny'].'</div>';
         unset($_SESSION['e_nr_seryjny']);
     }
+
+    if(isset($_SESSION['e_wyszukiwanie']))
+    {
+        echo '<div class="error">'.$_SESSION['e_wyszukiwanie'].'</div>';
+        unset($_SESSION['e_wyszukiwanie']);
+    }
     ?>
+
+
 
 
 
