@@ -103,8 +103,11 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
                 "<p> kwota netto: " . $data['netto_pl'] . "</p>" .
                 "<p> notatki: " . $data['notatki'] . "</p>" .
                 "<p> id właściciela: " . $data['id_wlasciciela'] . "</p>" ;
+            echo "<a href='deleteDevice.php?id=" . $data['id'] . "'>Usuń</a>";
+            echo "<a href='editDevice.php?id=" . $data['id'] . "'>Edytuj</a>";
        }
     }
+
 
     elseif(!isset($_SESSION['e_wyszukiwanie']) &&  isset($search_by) && $search_by == 'search-by-inwentarzowy'){
         echo "Brak wyszukiwań";
