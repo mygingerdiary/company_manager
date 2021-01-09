@@ -93,7 +93,14 @@ function validate_vat_kontrahenta($vat_kontrahenta)
     return true;
 }
 
-if (isset($_POST['nr_faktury'])) {
+if ($conn->connect_errno != 0) {
+    echo "ERROR: " . $conn->connect_errno;
+} else {
+    $waluty_select = 'SELECT * FROM waluty';
+    $waluty_result = mysqli_query($conn, $waluty_select);
+}
+
+if ($conn->connect_errno == 0 && isset($_POST['nr_faktury'])) {
     $valid = true;
 
     $nr_faktury = $_POST['nr_faktury'];
@@ -103,8 +110,7 @@ if (isset($_POST['nr_faktury'])) {
     $waluta = $_POST['waluta'];
     $nazwa_kontrahenta = $_POST['nazwa_kontrahenta'];
     $vat_kontrahenta = $_POST['vat_kontrahenta'];
-    $id_dokumentu = $_POST['id_dokumentu'];
-    $rodzaj = 1;
+    $rodzaj = $_POST['rodzaj'];
 
 
     if (validate_invoice_number($nr_faktury) &&
@@ -136,6 +142,8 @@ if (isset($_POST['nr_faktury'])) {
         if ($valid) {
             $kontrahent_id = add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahenta);
             $waluta_id = get_vault_id($conn, $waluta);
+
+            echo("<script>console.log('PHP: " . $kontrahent_id . "');</script>");
 
             if ($conn->query("INSERT INTO faktury " .
                 "(nr_faktury, netto, vat, brutto, waluta, kontrahent_id, id_dokumentu, rodzaj) " .
@@ -175,8 +183,11 @@ function check_if_vault_exists($conn, $waluta)
 function get_vault_id($conn, $waluta)
 {
     $result = $conn->query("SELECT id FROM waluty WHERE nazwa = '$waluta'");
-    $row = $result->fetch_array()[0];
-    return $row['id'];
+    if ($result->num_rows > 0) {
+        while ($data = $result->fetch_assoc()) {
+            return $data['id'];
+        }
+    }
 }
 
 function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahenta)
@@ -187,8 +198,11 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
     }
 
     $result = $conn->query("SELECT id FROM kontrahenci WHERE vat_id = $vat_kontrahenta");
-    $row = $result->fetch_array()[0];
-    return $row['id'];
+    if ($result->num_rows > 0) {
+        while ($data = $result->fetch_assoc()) {
+            return $data['id'];
+        }
+    }
 }
 
 ?>
@@ -273,12 +287,14 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
         <p>
             Waluta:
-            <input list="waluta" name="waluta" required>
+            <input list="waluta" name="waluta" value="<?php
+            if (isset($_SESSION[REMEMBER_WALUTA])) {
+                echo $_SESSION[REMEMBER_WALUTA];
+                unset($_SESSION[REMEMBER_WALUTA]);
+            }
+            ?>" required>
             <datalist id="waluta">
                 <?php
-
-                $waluty_select = 'SELECT * FROM waluty';
-                $waluty_result = mysqli_query($conn, $waluty_select);
 
                 if ($waluty_result->num_rows > 0) {
                     while ($data = $waluty_result->fetch_assoc()) {
@@ -326,6 +342,14 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
             unset($_SESSION[ERROR_VAT_KONTRAHENTA]);
         }
         ?>
+
+        <div>
+            <input type='radio' name='rodzaj' value='1' id="sell_invoice" checked/>
+            <label for="sell_invoice">Faktura sprzedaży</label>
+
+            <input type='radio' name='rodzaj' value='2' id="buy_invoice"/>
+            <label for="buy_invoice">Faktura zakupu</label>
+        </div>
 
         <button type="submit">Dodaj</button>
     </form>
