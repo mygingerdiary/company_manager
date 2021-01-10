@@ -73,7 +73,7 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
         <p>Szukaj po:</p>
         <div>
             <input type='radio' name='search-by' value='search-by-inwentarzowy' id="search-by-inwentarzowy"/>
-            <label for="search">nr inwentarzowy</label>
+            <label for="search-by-inwentarzowy">nr inwentarzowy</label>
 
             <input type='radio' name='search-by' value='search-by-nr-seryjny' id="search-by-nr-seryjny"/>
             <label for="search-by-nr-seryjny">nr seryjny</label>
