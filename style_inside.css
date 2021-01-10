@@ -126,3 +126,15 @@ textarea
     padding-top: 0;
     padding-left: 0;
 }
+
+#waznosc_licencji
+{
+    display: flex;
+    flex-direction: row;
+}
+
+#data_waznosci
+{
+    visibility: hidden;
+}
+

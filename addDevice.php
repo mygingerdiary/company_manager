@@ -46,11 +46,12 @@ if(isset($_POST['nr_inwent']))
 
     //DATA ZAKUPU
     $data_zakupu = $_POST['data_zakupu'];
-    if(preg_match("/^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])$/",$data_zakupu))
-    {
+    list($yyyy, $mm, $dd) = explode('-', $data_zakupu);
+    if (!checkdate($mm,$dd,$yyyy)) {
         $ok = false;
         $_SESSION['e_data_zakupu'] = "Wprowadzona wartość musi być datą";
     }
+
     if($data_zakupu > $date_now)
     {
         $ok = false;
@@ -59,11 +60,17 @@ if(isset($_POST['nr_inwent']))
 
     //DATA GWARANCJI
     $data_gwarancji = $_POST['data_gwarancji'];
-    if(preg_match("/^[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])$/",$data_gwarancji))
-    {
+    list($yyyy, $mm, $dd) = explode('-', $data_gwarancji);
+    if (!checkdate($mm,$dd,$yyyy)) {
         $ok = false;
         $_SESSION['e_data_gwarancji'] = "Wprowadzona wartość musi być datą";
     }
+    if($data_zakupu > $data_gwarancji)
+    {
+        $ok = false;
+        $_SESSION['e_data_gwarancji'] = "Data gwarancji nie może być wcześniejsza niż data zakupu";
+    }
+
 
     //WARTOSC NETTO
     $wartosc_netto = $_POST['wartosc_netto'];
@@ -80,6 +87,14 @@ if(isset($_POST['nr_inwent']))
 
     $opis = $_POST['opis'];
     $nr_faktury = $_POST['faktury'];
+    if(!isset($nr_faktury))
+    {
+        $nr_faktury = "NULL";
+    }
+    else
+    {
+        $nr_faktury = "'$nr_faktury'";
+    }
     $notatki = $_POST['notatki'];
     $uzytkownik = $_POST['uzytkownicy'];
 
@@ -116,7 +131,7 @@ try
 
         if($ok == true)
         {
-            if($conn->query("INSERT INTO sprzety VALUES (NULL, '$nr_inwent', '$nazwa', '$opis', '$nr_seryjny', '$data_zakupu', '$nr_faktury', '$data_gwarancji', '$wartosc_netto', '$notatki', '$uzytkownik')"))
+            if($conn->query("INSERT INTO sprzety VALUES (NULL, '$nr_inwent', '$nazwa', '$opis', '$nr_seryjny', '$data_zakupu', $nr_faktury, '$data_gwarancji', '$wartosc_netto', '$notatki', '$uzytkownik')"))
             {
                 header("Location: addDevice.php");
             }
@@ -305,7 +320,7 @@ catch (Exception $e)
                 <label for="uzytkownicy">Na czyim stanie:</label>
                 <select name="uzytkownicy" id="uzytkownicy">
                     <?php
-                    if ($results_f->num_rows > 0)
+                    if ($results_u->num_rows > 0)
                     {
                         while ($data = $results_u->fetch_assoc())
                         {

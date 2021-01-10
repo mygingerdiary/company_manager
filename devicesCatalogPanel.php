@@ -58,7 +58,7 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Katalog licencji</title>
+    <title>Katalog sprzętu</title>
     <link href="style_inside.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
