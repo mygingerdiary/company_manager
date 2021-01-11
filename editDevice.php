@@ -2,6 +2,18 @@
 session_start();
 $id = $_GET['id'];
 
+const REMEMBER_IWENT= 'remember_iwent';
+const REMEMBER_NAZWA = 'remember_nazwa';
+const REMEMBER_OPIS = 'remember_opis';
+const REMEMBER_KLUCZ = 'remember_klucz';
+const REMEMBER_DATA= 'remember_data';
+const REMEMBER_NR_FAKTURY = 'remember_nr_faktury';
+const REMEMBER_GWARANCJA = 'remember_gwarancja';
+const REMEMBER_NETTO = 'remember_netto';
+const REMEMBER_NOTATKI = 'remember_notatki';
+const REMEMBER_WLASCICIEL = 'remember_wlasciciel';
+
+
 if(isset($_POST['nr_inwent']))
 {
     //udana walidacja
@@ -108,7 +120,7 @@ try
 
     if ($conn->connect_errno != 0)
     {
-        echo "ERROR: " . $polaczenie->connect_errno;
+        echo "ERROR: " . $conn->connect_errno;
     }
     else {
         $results_u = $conn->query('SELECT * FROM uzytkownicy');
@@ -117,13 +129,13 @@ try
 
         if($ok == true)
         {
-            if($conn->query("UPDATE sprzety SET nr_inwentarzowy='$nr_inwent',nazwa= '$nazwa',opis= '$opis',nr_seryjny='$nr_seryjny',data_zakupu= '$data_zakupu',nr_faktury= '$nr_faktury',data_gwarancji= '$data_gwarancji',wartosc_netto= '$wartosc_netto',notatki= '$notatki',id_wlasciciela= '$uzytkownik')"))
+            if($conn->query("UPDATE sprzety SET nr_inwentarzowy='$nr_inwent',nazwa= '$nazwa',opis= '$opis',nr_seryjny='$nr_seryjny',data_zakupu= '$data_zakupu',nr_faktury= '$nr_faktury',data_gwarancji= '$data_gwarancji',netto_pln= '$wartosc_netto',notatki= '$notatki',id_wlasciciela= '$uzytkownik')"))
             {
                 header("Location: addDevice.php");
             }
             else
             {
-                throw new Exception($connection->error);
+                throw new Exception($conn->error);
             }
         }
     }
@@ -137,6 +149,24 @@ catch (Exception $e)
     echo '<br />Informacja developerska: '.$e;
 }
 
+$db = new mysqli($host, $db_user, $db_password, $db_name);
+$docs_select = "SELECT * FROM sprzety WHERE id=$id";
+$docs_result = mysqli_query($db, $docs_select);
+
+if ($docs_result->num_rows > 0) {
+    while ($data = $docs_result->fetch_assoc()) {
+        $_SESSION[REMEMBER_IWENT] = $data['nr_inwentarzowy'];
+        $_SESSION[REMEMBER_NAZWA] = $data['nazwa'];
+        $_SESSION[REMEMBER_OPIS] = $data['opis'];
+        $_SESSION[REMEMBER_KLUCZ] = $data['nr_seryjny'];
+        $_SESSION[REMEMBER_DATA] = $data['data_zakupu'];
+        $_SESSION[REMEMBER_NR_FAKTURY] = $data['nr_faktury'];
+        $_SESSION[REMEMBER_GWARANCJA] = $data['gwarancja_do'];
+        $_SESSION[REMEMBER_NETTO] = $data['netto_pln'];
+        $_SESSION[REMEMBER_NOTATKI] = $data['notatki'];
+        $_SESSION[REMEMBER_WLASCICIEL] = $data['id_wlasciciela'];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -149,19 +179,20 @@ catch (Exception $e)
 <body>
     <div id="panel">
 
-        <h1> Dodawanie sprzętu </h1>
+        <h1> Edycja sprzętu </h1>
 
         <form method="post">
 
             <p>
                 Numer inwentarzowy
-                <input type="text" name="nr_inwent" value="<?php
-                if(isset($_SESSION['fr_nr_inwent']))
-                {
-                    echo $_SESSION['fr_nr_inwent'];
-                    unset($_SESSION['fr_nr_inwent']);
-                }
-                ?>">
+                <label>
+                    <input type="text" name="nr_inwent" value= <?php
+                    if (isset($_SESSION[REMEMBER_IWENT])) {
+                        echo $_SESSION[REMEMBER_IWENT];
+                        unset($_SESSION[REMEMBER_IWENT]);
+                    }
+                    ?> >
+                </label>
             </p>
 
             <?php
@@ -174,15 +205,16 @@ catch (Exception $e)
 
             <p>
                 Nazwa:
-                <input type="text" name="nazwa" value="<?php
-                if(isset($_SESSION['fr_nazwa']))
-                {
-                    echo $_SESSION['fr_nazwa'];
-                    unset($_SESSION['fr_nazwa']);
-                }
-                ?>">
+                <label>
+                    <input type="text" name="nazwa" value= <?php
+                    if (isset($_SESSION[REMEMBER_NAZWA])) {
+                        echo $_SESSION[REMEMBER_NAZWA];
+                        unset($_SESSION[REMEMBER_NAZWA]);
+                    }
+                    ?>
+                    >
+                </label>
             </p>
-
             <?php
             if(isset($_SESSION['e_nazwa']))
             {
@@ -195,10 +227,10 @@ catch (Exception $e)
                 Opis:
                 <br />
                 <textarea rows="4" cols="50" maxlength="1000" name="opis"><?php
-                    if(isset($_SESSION['fr_opis']))
+                    if(isset($_SESSION[REMEMBER_OPIS]))
                     {
-                        echo $_SESSION['fr_opis'];
-                        unset($_SESSION['fr_opis']);
+                        echo $_SESSION[REMEMBER_OPIS];
+                        unset($_SESSION[REMEMBER_OPIS]);
                     }
                     ?></textarea>
                 <br />
@@ -207,13 +239,12 @@ catch (Exception $e)
 
             <p>
                 Numer seryjny:
-                <input type="text" name="nr_seryjny" value="<?php
-                if(isset($_SESSION['fr_nr_seryjny']))
-                {
-                    echo $_SESSION['fr_nr_seryjny'];
-                    unset($_SESSION['fr_nr_seryjny']);
+                <input type="text" name="nr_seryjny" value= <?php
+                if (isset($_SESSION[REMEMBER_KLUCZ])) {
+                    echo $_SESSION[REMEMBER_KLUCZ];
+                    unset($_SESSION[REMEMBER_KLUCZ]);
                 }
-                ?>">
+                ?> >
             </p>
 
             <?php
@@ -226,13 +257,12 @@ catch (Exception $e)
 
             <p>
                 Data zakupu:
-                <input type="date" name="data_zakupu"  value="<?php
-                if(isset($_SESSION['fr_data_zakupu']))
-                {
-                    echo $_SESSION['fr_data_zakupu'];
-                    unset($_SESSION['fr_data_zakupu']);
+                <input type="date" name="data_zakupu"  value= <?php
+                if (isset($_SESSION[REMEMBER_DATA])) {
+                    echo $_SESSION[REMEMBER_DATA];
+                    unset($_SESSION[REMEMBER_DATA]);
                 }
-                ?>">
+                ?> >
             </p>
 
             <?php
@@ -252,10 +282,11 @@ catch (Exception $e)
                         while ($data = $results_f->fetch_assoc())
                         {
                             echo "<option value=" . $data['id'] . " ";
-                            if(isset($_SESSION['fr_nr_faktury']) && $_SESSION['fr_nr_faktury'] == $data['id'])
+                            if(isset($_SESSION[REMEMBER_NR_FAKTURY]) && $_SESSION[REMEMBER_NR_FAKTURY] == $data['id'])
                             {
                                 echo "selected";
-                                unset($_SESSION['fr_nr_faktury']);
+
+                                unset($_SESSION[REMEMBER_NR_FAKTURY]);
                             }
                             echo ">" . $data['nr_faktury'] . "</option>/n";
                         }
@@ -267,10 +298,10 @@ catch (Exception $e)
             <p>
                 Gwarancja do:
                 <input type="date" name="data_gwarancji" value="<?php
-                if(isset($_SESSION['fr_data_gwarancji']))
+                if(isset($_SESSION[REMEMBER_GWARANCJA]))
                 {
-                    echo $_SESSION['fr_data_gwarancji'];
-                    unset($_SESSION['fr_data_gwarancji']);
+                    echo $_SESSION[REMEMBER_GWARANCJA];
+                    unset($_SESSION[REMEMBER_GWARANCJA]);
                 }
                 ?>">
             </p>
@@ -286,10 +317,10 @@ catch (Exception $e)
             <p>
                 Wartość netto:
                 <input type="number" step="0.01" name="wartosc_netto" value="<?php
-                if(isset($_SESSION['fr_wartosc_netto']))
+                if(isset($_SESSION[REMEMBER_NETTO]))
                 {
-                    echo $_SESSION['fr_wartosc_netto'];
-                    unset($_SESSION['fr_wartosc_netto']);
+                    echo $_SESSION[REMEMBER_NETTO];
+                    unset($_SESSION[REMEMBER_NETTO]);
                 }
                 ?>">
             </p>
@@ -306,15 +337,15 @@ catch (Exception $e)
                 <label for="uzytkownicy">Na czyim stanie:</label>
                 <select name="uzytkownicy" id="uzytkownicy">
                     <?php
-                    if ($results_f->num_rows > 0)
+                    if ($results_u->num_rows > 0)
                     {
                         while ($data = $results_u->fetch_assoc())
                         {
                             echo "<option value=" . $data['id'] . " ";
-                            if(isset($_SESSION['fr_uzytkownicy']) && $_SESSION['fr_uzytkownicy'] == $data['id'])
+                            if(isset($_SESSION[REMEMBER_WLASCICIEL]) && $_SESSION[REMEMBER_WLASCICIEL] == $data['id'])
                             {
                                 echo "selected";
-                                unset($_SESSION['fr_uzytkownicy']);
+                                unset($_SESSION[REMEMBER_WLASCICIEL]);
                             }
                             echo ">" . $data['imie'] . " " . $data['nazwisko'] . "</option>/n";
                         }
@@ -323,16 +354,17 @@ catch (Exception $e)
                 </select>
             </p>
 
+
             <p>
                 Notatki:
                 <br />
-                <textarea rows="4" cols="50" maxlength="1000" name="notatki"><?php
-                    if(isset($_SESSION['fr_notatki']))
-                    {
-                        echo $_SESSION['fr_notatki'];
-                        unset($_SESSION['fr_notatki']);
-                    }
-                    ?></textarea>
+                <textarea rows="4" cols="50" maxlength="1000" name="notatki">
+           <?php
+           if (isset($_SESSION[REMEMBER_NOTATKI])) {
+               echo $_SESSION[REMEMBER_NOTATKI];
+               unset($_SESSION[REMEMBER_NOTATKI]);
+           }
+           ?> </textarea>
                 <br />
                 *pole może pozostać puste
             </p>
