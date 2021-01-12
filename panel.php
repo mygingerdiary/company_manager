@@ -16,8 +16,7 @@
     </form>
     <div class="panel">
         <button onclick="window.location.href = 'addUserPanel.php';"> stwórz użytkownika</button>
-        <button onclick="window.location.href = 'invoices/salesInvoicePanel.php';"> katalog faktur sprzedaży</button>
-        <button> katalog faktur zakupu</button>
+        <button onclick="window.location.href = 'invoices/salesInvoicePanel.php';"> podsystem katalogów faktur</button>
         <button onclick="window.location.href = 'documentsSystem.php';"> podsystem dokumentów</button>
         <button onclick="window.location.href = 'devicesCatalogPanel.php';"> podsystem katalogów sprzętu</button>
         <button onclick="window.location.href = 'licencesCatalogPanel.php';"> podsystem licecji</button>
