@@ -232,6 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             "<p>" . $data['id'] . "</p>" .
                             "<p> nr faktury: " . $data['nr_faktury'] . "</p>" .
                             "<p> kwota netto: " . $data['netto'] . "</p>" .
+                            "<p> kwota netto w PLN: " . $data['netto_pln'] . "</p>" .
                             "<p> vat: " . $data['vat'] . "</p>" .
                             "<p> kwota brutto: " . $data['brutto'] . "</p>" .
                             "<p> waluta: " . $waluta_name . "</p>" .

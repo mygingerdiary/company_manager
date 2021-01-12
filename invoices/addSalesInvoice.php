@@ -3,6 +3,7 @@ session_start();
 
 const ERROR_NR_FAKTURY = 'error_nr_faktury';
 const ERROR_NETTO = 'error_netto';
+const ERROR_NETTO_PLN = 'error_netto_pln';
 const ERROR_VAT = 'error_vat';
 const ERROR_BRUTTO = 'error_brutto';
 const ERROR_WALUTA = 'error_waluta';
@@ -11,6 +12,7 @@ const ERROR_VAT_KONTRAHENTA = 'error_vat_kontrahenta';
 
 const REMEMBER_NR_FAKTURY = 'remember_nr_faktury';
 const REMEMBER_NETTO = 'remember_netto';
+const REMEMBER_NETTO_PLN = 'remember_netto_pln';
 const REMEMBER_VAT = 'remember_vat';
 const REMEMBER_BRUTTO = 'remember_brutto';
 const REMEMBER_WALUTA = 'remember_waluta';
@@ -40,6 +42,16 @@ function validate_netto($netto)
     }
     return true;
 }
+
+function validate_netto_pln($netto_pln)
+{
+    if (!is_numeric($netto_pln)) {
+        $_SESSION[ERROR_NETTO_PLN] = "Kwota netto nie jest liczbą";
+        return false;
+    }
+    return true;
+}
+
 
 function validate_vat($vat)
 {
@@ -105,6 +117,7 @@ if ($conn->connect_errno == 0 && isset($_POST['nr_faktury'])) {
 
     $nr_faktury = $_POST['nr_faktury'];
     $netto = $_POST['netto'];
+    $netto_pln = $_POST['netto_pln'];
     $vat = $_POST['vat'];
     $brutto = $_POST['brutto'];
     $waluta = $_POST['waluta'];
@@ -115,6 +128,7 @@ if ($conn->connect_errno == 0 && isset($_POST['nr_faktury'])) {
 
     if (validate_invoice_number($nr_faktury) &&
         validate_netto($netto) &&
+        validate_netto_pln($netto_pln) &&
         validate_vat($vat) &&
         validate_brutto($brutto) &&
         validate_waluta($waluta) &&
@@ -128,6 +142,7 @@ if ($conn->connect_errno == 0 && isset($_POST['nr_faktury'])) {
     // remember data
     $_SESSION[REMEMBER_NR_FAKTURY] = $nr_faktury;
     $_SESSION[REMEMBER_NETTO] = $netto;
+    $_SESSION[REMEMBER_NETTO_PLN] = $netto_pln;
     $_SESSION[REMEMBER_VAT] = $vat;
     $_SESSION[REMEMBER_BRUTTO] = $brutto;
     $_SESSION[REMEMBER_WALUTA] = $waluta;
@@ -143,11 +158,9 @@ if ($conn->connect_errno == 0 && isset($_POST['nr_faktury'])) {
             $kontrahent_id = add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahenta);
             $waluta_id = get_vault_id($conn, $waluta);
 
-            echo("<script>console.log('PHP: " . $kontrahent_id . "');</script>");
-
             if ($conn->query("INSERT INTO faktury " .
-                "(nr_faktury, netto, vat, brutto, waluta, kontrahent_id, id_dokumentu, rodzaj) " .
-                "VALUES('$nr_faktury', $netto, $vat, $brutto, $waluta_id, $kontrahent_id, NULL, $rodzaj);")) {
+                "(nr_faktury, netto, netto_pln, vat, brutto, waluta, kontrahent_id, id_dokumentu, rodzaj) " .
+                "VALUES('$nr_faktury', $netto, $netto_pln, $vat, $brutto, $waluta_id, $kontrahent_id, NULL, $rodzaj);")) {
 
                 $id_select_query = "SELECT id FROM faktury WHERE nr_faktury=$nr_faktury AND kontrahent_id=$kontrahent_id LIMIT 1";
                 $id_result = mysqli_query($conn, $id_select_query);
@@ -254,6 +267,22 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
         ?>
 
         <p>
+            Kwota netto w PLN:
+            <input type="text" name="netto_pln" placeholder="netto_pln" value="<?php
+            if (isset($_SESSION[REMEMBER_NETTO_PLN])) {
+                echo $_SESSION[REMEMBER_NETTO_PLN];
+                unset($_SESSION[REMEMBER_NETTO_PLN]);
+            }
+            ?>">
+        </p>
+        <?php
+        if (isset($_SESSION[ERROR_NETTO_PLN])) {
+            echo '<div class="error">' . $_SESSION[ERROR_NETTO_PLN] . '</div>';
+            unset($_SESSION[ERROR_NETTO_PLN]);
+        }
+        ?>
+
+        <p>
             Vat:
             <input type="text" name="vat" placeholder="vat" value="<?php
             if (isset($_SESSION[REMEMBER_VAT])) {
@@ -287,22 +316,21 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
         <p>
             Waluta:
-            <input list="waluta" name="waluta" value="<?php
+            <select name="waluta" value="<?php
             if (isset($_SESSION[REMEMBER_WALUTA])) {
                 echo $_SESSION[REMEMBER_WALUTA];
                 unset($_SESSION[REMEMBER_WALUTA]);
             }
             ?>" required>
-            <datalist id="waluta">
                 <?php
-
                 if ($waluty_result->num_rows > 0) {
                     while ($data = $waluty_result->fetch_assoc()) {
-                        echo "<option value='" . $data['nazwa'] . "'>\n";
+                        echo "<option value='" . $data['nazwa'] . "'>" . $data['nazwa'] . "</option>";
                     }
                 }
                 ?>
-            </datalist>
+            </select>
+
         </p>
         <?php
         if (isset($_SESSION[ERROR_WALUTA])) {
