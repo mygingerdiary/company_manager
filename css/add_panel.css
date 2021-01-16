@@ -1,0 +1,44 @@
+.panel-section {
+    width: 50rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.input-section > form {
+    text-align: center;
+}
+
+.input-section > form > p {
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-section-docs form {
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.input-section-docs form > * {
+    margin: 0.7rem;
+}
+
+.type-of-user {
+    margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 2rem;
+}
+.type-of-user > input {
+    margin-left: 2rem;
+}
