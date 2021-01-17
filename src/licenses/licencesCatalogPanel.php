@@ -71,8 +71,10 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
 <h1>Podsystem licencji</h1>
 
 <form method="post" action="licencesCatalogPanel.php">
-    <input type="text" placeholder="szukana fraza..." name="napis">
-    <button type="submit" name="submit"><i class="fa fa-search"></i></button>
+    <div class="search-bar">
+        <input type="text" placeholder="szukana fraza..." name="napis">
+        <button type="submit" name="submit"><i class="fa fa-search"></i></button>
+    </div>
     <div class="search-by-selection">
         <p>Szukaj po:</p>
 
@@ -104,7 +106,7 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
                 array_push($_SESSION['rzad'], $data['id']);
 
                 echo "<li>" .
-                    "<p>" . $data['id'] . "</p>" .
+                    "<p> id: " . $data['id'] . "</p>" .
                     "<p> nr inwentarzowy: " . $data['nr_inwentarzowy'] . "</p>" .
                     "<p> nazwa: " . $data['nazwa'] . "</p>" .
                     "<p> opis: " . $data['opis'] . "</p>" .

@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         if ($data['rodzaj'] == $invoice_type) {
                             echo "<li>" .
-                                "<p>" . $data['id'] . "</p>" .
+                                "<p> id: " . $data['id'] . "</p>" .
                                 "<p> nr faktury: " . $data['nr_faktury'] . "</p>" .
                                 "<p> kwota netto: " . $data['netto'] . "</p>" .
                                 "<p> kwota netto w PLN: " . $data['netto_pln'] . "</p>" .

@@ -27,8 +27,10 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
 <hr>
 
 <form class="search" method="post" action="documentsSystem.php">
-    <input type="number" name="napis" placeholder="Wyszukaj..." min="1" step="1">
-    <button type="submit" name="submit"><i class="fa fa-search"></i></button>
+    <div class="search-bar">
+        <input type="number" name="napis" placeholder="Wyszukaj..." min="1" step="1">
+        <button type="submit" name="submit"><i class="fa fa-search"></i></button>
+    </div>
     <div class="date-selection">
 
         <select class="form-control" name="month">
