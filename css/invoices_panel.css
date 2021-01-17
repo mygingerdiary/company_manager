@@ -1,0 +1,183 @@
+.panel-section {
+    width: 40rem;
+    height: 40rem;
+    margin-bottom: 2rem;
+}
+
+.panel-section > ol {
+    width: 39rem;
+    height: 35rem;
+    overflow-y: scroll;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid #0B9FA2;
+}
+
+.invoice-type-section > form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar-section {
+    padding-top: 2rem;
+}
+
+.search-bar-section > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.search-by-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-by-selection > input {
+    margin-left: 2rem;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar > * {
+    height: 2.5rem;
+}
+
+.date-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.date-selection > * {
+    margin: 0 1rem;
+}
+
+ol.invoice-list > li::before, ol.invoice-list > li {
+    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+}
+
+ol.invoice-list {
+    counter-reset: gradient-counter;
+    list-style: none;
+    margin: 1.75rem 0;
+    padding-left: 1rem;
+}
+
+ol.invoice-list > li {
+    background: white;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    counter-increment: gradient-counter;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+}
+
+ol.invoice-list > li::before, ol.invoice-list > li::after {
+    background: linear-gradient(135deg, #83e4e2 0%, #a2ed56 100%);
+    border-radius: 1rem 1rem 0 1rem;
+    content: "";
+    height: 3rem;
+    left: -1rem;
+    overflow: hidden;
+    position: absolute;
+    top: -1rem;
+    width: 3rem;
+}
+
+ol.invoice-list > li::before {
+    align-items: flex-end;
+    content: counter(gradient-counter);
+    color: #1d1f20;
+    display: flex;
+    font: 900 2.5em/1 "Montserrat";
+    justify-content: flex-end;
+    padding: 0.125em 0.125em;
+    z-index: 1;
+}
+
+ol.invoice-list > li:nth-child(10n+1):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.2) 0%, rgba(253, 220, 50, 0.2) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+2):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.4) 0%, rgba(253, 220, 50, 0.4) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+3):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.6) 0%, rgba(253, 220, 50, 0.6) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+4):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.8) 0%, rgba(253, 220, 50, 0.8) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+5):before {
+    background: linear-gradient(135deg, #a2ed56 0%, #fddc32 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+6):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.8) 0%, rgba(253, 220, 50, 0.8) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+7):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.6) 0%, rgba(253, 220, 50, 0.6) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+8):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.4) 0%, rgba(253, 220, 50, 0.4) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+9):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0.2) 0%, rgba(253, 220, 50, 0.2) 100%);
+}
+
+ol.invoice-list > li:nth-child(10n+10):before {
+    background: linear-gradient(135deg, rgba(162, 237, 86, 0) 0%, rgba(253, 220, 50, 0) 100%);
+}
+
+ol.invoice-list > li + li {
+    margin-top: 2rem;
+}
+
+.update-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.update-button {
+    display: block;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 0.5rem 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+
+    width: 5rem;
+    margin: 0.5rem 0;
+}
+
+.update-button:hover {
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: #f44336;
+}

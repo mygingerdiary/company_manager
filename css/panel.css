@@ -1,0 +1,85 @@
+body, main {
+    background-color: #EBFFFB;
+    font-size: 20px;
+    color: black;
+    font-family: 'Verdana', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem;
+}
+
+.panel-section {
+    width: 30rem;
+    background: #fffffe;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-top: 10px solid #0B9FA2;
+
+    margin-top: 5rem;
+}
+
+.title-section p{
+    padding: 5px 20px;
+    margin: 10px;
+    color: #0B9FA2;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.title-section hr {
+    width: 40%;
+    margin: 0px 30px;
+    border: 1px solid #0B9FA2;
+}
+
+.button-section {
+    padding: 10px;
+    margin: 10px;
+    display: grid;
+    grid-gap: 10px;
+}
+
+.panel-button {
+    padding: 10px 0px 10px 10px;
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    background-color: white;
+    font-size: 15px;
+    grid-gap: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.transparent-button {
+    display: inline-block;
+    padding: 0.46em 1.6em;
+    border: 0.2em solid #000000;
+    margin: 0 0.2em 0.2em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000000;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    background-color: rgba(0, 0, 0, 0);
+    text-align: center;
+    transition: all 0.15s;
+}
+
+.transparent-button:hover {
+    text-shadow: 0 0 2em rgba(255, 255, 255, 1);
+    color: #0B9FA2;
+    border-color: #0B9FA2;
+    cursor: pointer;
+}
+
+.error
+{
+    color: red;
+    margin-bottom: 1rem;
+}
