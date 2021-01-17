@@ -148,7 +148,7 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
 </div>
 
 
-<a href="../panel.php"> Wróć do panelu </a>
+<a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
 </body>
 </html>

@@ -1,22 +1,29 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Jan 10, 2021 at 09:31 PM
--- Server version: 5.7.26
--- PHP Version: 7.4.2
+-- Host: 127.0.0.1
+-- Czas generowania: 17 Sty 2021, 19:47
+-- Wersja serwera: 10.4.14-MariaDB
+-- Wersja PHP: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `company_manager`
+-- Baza danych: `company_manager`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedury
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `duzeImieNazwisko` ()  BEGIN
 	 UPDATE uzytkownicy SET 
@@ -30,7 +37,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dokumenty`
+-- Struktura tabeli dla tabeli `dokumenty`
 --
 
 CREATE TABLE `dokumenty` (
@@ -38,22 +45,24 @@ CREATE TABLE `dokumenty` (
   `data` date NOT NULL,
   `l_stron` int(11) NOT NULL,
   `notatki` text NOT NULL,
-  `zdjecie_dokumentu` text
+  `zdjecie_dokumentu` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `dokumenty`
+-- Zrzut danych tabeli `dokumenty`
 --
 
 INSERT INTO `dokumenty` (`id`, `data`, `l_stron`, `notatki`, `zdjecie_dokumentu`) VALUES
-(1, '2021-01-06', 2, 'abcdef', '1r.png'),
 (2, '2021-01-04', 20, 'adsadadawdaw', 'testpdf.pdf'),
-(3, '2021-01-05', 21, 'jhgdjhgjhg', 'img_lights.jpg');
+(3, '2021-01-05', 21, 'jhgdjhgjhg', 'img_lights.jpg'),
+(5, '2021-01-15', 10, 'czczczcczcxzcx', 'testpdf.pdf'),
+(6, '2020-09-17', 2, 'notatka', 'testpdf.pdf'),
+(7, '2021-01-10', 1, 'ważne', 'phonepicutres-TA.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faktury`
+-- Struktura tabeli dla tabeli `faktury`
 --
 
 CREATE TABLE `faktury` (
@@ -69,10 +78,22 @@ CREATE TABLE `faktury` (
   `id_dokumentu` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Zrzut danych tabeli `faktury`
+--
+
+INSERT INTO `faktury` (`id`, `rodzaj`, `nr_faktury`, `netto_pln`, `netto`, `waluta`, `brutto`, `vat`, `kontrahent_id`, `id_dokumentu`) VALUES
+(23, 1, '6776', '200', '200', 1, '220', 7, 18, NULL),
+(24, 2, '444', '433', '433', 2, '441', 8, 1, 2),
+(25, 1, '765', '877', '301', 2, '321', 8, 19, 3),
+(26, 2, '334', '334', '334', 1, '356', 8, 1, 5),
+(27, 1, '546', '1025', '200', 1, '228', 23, 20, 7),
+(28, 2, '6776', '2557', '2557', 1, '2757', 23, 20, 3);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategorie_faktur`
+-- Struktura tabeli dla tabeli `kategorie_faktur`
 --
 
 CREATE TABLE `kategorie_faktur` (
@@ -81,7 +102,7 @@ CREATE TABLE `kategorie_faktur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kategorie_faktur`
+-- Zrzut danych tabeli `kategorie_faktur`
 --
 
 INSERT INTO `kategorie_faktur` (`id`, `nazwa`) VALUES
@@ -91,7 +112,7 @@ INSERT INTO `kategorie_faktur` (`id`, `nazwa`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kontrahenci`
+-- Struktura tabeli dla tabeli `kontrahenci`
 --
 
 CREATE TABLE `kontrahenci` (
@@ -101,7 +122,7 @@ CREATE TABLE `kontrahenci` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kontrahenci`
+-- Zrzut danych tabeli `kontrahenci`
 --
 
 INSERT INTO `kontrahenci` (`id`, `nazwa`, `vat_id`) VALUES
@@ -121,41 +142,44 @@ INSERT INTO `kontrahenci` (`id`, `nazwa`, `vat_id`) VALUES
 (14, 'fsdfds', 654),
 (15, 'gsgsdgsd', 234),
 (16, 'jjjjjjj', 543),
-(17, 'kkkk', 6);
+(17, 'kkkk', 6),
+(18, 'dasdas', 32412421),
+(19, 'dsadsa', 9),
+(20, 'mon', 23);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `licencje`
+-- Struktura tabeli dla tabeli `licencje`
 --
 
 CREATE TABLE `licencje` (
   `id` int(11) NOT NULL,
   `nr_inwentarzowy` text NOT NULL,
   `nazwa` text NOT NULL,
-  `opis` text,
+  `opis` text DEFAULT NULL,
   `klucz_seryjny` text NOT NULL,
   `data_zakupu` date NOT NULL,
   `id_faktury` int(11) DEFAULT NULL,
   `wsparcie_do` date NOT NULL,
   `licencja_do` date DEFAULT NULL,
-  `notatki` text,
+  `notatki` text DEFAULT NULL,
   `id_wlasciciela` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `licencje`
+-- Zrzut danych tabeli `licencje`
 --
 
 INSERT INTO `licencje` (`id`, `nr_inwentarzowy`, `nazwa`, `opis`, `klucz_seryjny`, `data_zakupu`, `id_faktury`, `wsparcie_do`, `licencja_do`, `notatki`, `id_wlasciciela`) VALUES
-(1, 'numer', 'nazwa', '', 'klucz', '2021-01-10', NULL, '2021-01-10', '2021-01-28', '', 14),
-(2, 'nr', 'nazwa', '', 'klucz', '2021-01-10', NULL, '2021-01-09', '2021-01-08', '', 1),
-(3, 'numer', 'nazwa', '', 'klucz', '2021-01-07', NULL, '2021-01-23', NULL, '', 1);
+(3, 'numer', 'nazwa', '', 'klucz', '2021-01-07', NULL, '2021-01-23', NULL, '', 1),
+(4, '2', 'licencja1', 'licencja1', 'ABC-823', '2021-01-17', 24, '2021-04-30', NULL, '', 24),
+(5, '12', 'licencja2', 'licencja2', 'XYZ-213', '2021-01-05', 24, '2021-02-28', '2021-02-28', 'tescik', 8);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Struktura tabeli dla tabeli `role`
 --
 
 CREATE TABLE `role` (
@@ -164,7 +188,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `role`
+-- Zrzut danych tabeli `role`
 --
 
 INSERT INTO `role` (`id`, `nazwa`) VALUES
@@ -175,27 +199,36 @@ INSERT INTO `role` (`id`, `nazwa`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sprzety`
+-- Struktura tabeli dla tabeli `sprzety`
 --
 
 CREATE TABLE `sprzety` (
   `id` int(11) NOT NULL,
   `nr_inwentarzowy` text NOT NULL,
   `nazwa` text NOT NULL,
-  `opis` text,
+  `opis` text DEFAULT NULL,
   `nr_seryjny` text NOT NULL,
   `data_zakupu` date NOT NULL,
   `nr_faktury` int(11) DEFAULT NULL,
   `gwarancja_do` date NOT NULL,
   `netto_pln` decimal(10,0) NOT NULL,
-  `notatki` text,
+  `notatki` text DEFAULT NULL,
   `id_wlasciciela` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `sprzety`
+--
+
+INSERT INTO `sprzety` (`id`, `nr_inwentarzowy`, `nazwa`, `opis`, `nr_seryjny`, `data_zakupu`, `nr_faktury`, `gwarancja_do`, `netto_pln`, `notatki`, `id_wlasciciela`) VALUES
+(2, '1', 'blabla', 'blabla', '12321', '2021-01-08', 24, '2021-02-28', '201', '', 14),
+(3, 'numer1', 'numer', '', '75984', '2021-01-06', 24, '2021-05-30', '550', 'blabla', 6),
+(4, '5555', 'dsdfdsf', '', '213ffa', '2021-01-13', 25, '2021-02-07', '278', 'test', 25);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `uzytkownicy`
+-- Struktura tabeli dla tabeli `uzytkownicy`
 --
 
 CREATE TABLE `uzytkownicy` (
@@ -208,7 +241,7 @@ CREATE TABLE `uzytkownicy` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `uzytkownicy`
+-- Zrzut danych tabeli `uzytkownicy`
 --
 
 INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `login`, `haslo`, `id_roli`) VALUES
@@ -228,7 +261,7 @@ INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `login`, `haslo`, `id_roli`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `waluty`
+-- Struktura tabeli dla tabeli `waluty`
 --
 
 CREATE TABLE `waluty` (
@@ -237,7 +270,7 @@ CREATE TABLE `waluty` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `waluty`
+-- Zrzut danych tabeli `waluty`
 --
 
 INSERT INTO `waluty` (`id`, `nazwa`) VALUES
@@ -245,22 +278,20 @@ INSERT INTO `waluty` (`id`, `nazwa`) VALUES
 (2, 'USD'),
 (3, 'EUR'),
 (4, 'GBP'),
-(5, 'JPY'),
-(6, ''),
-(7, '');
+(5, 'JPY');
 
 --
--- Indexes for dumped tables
+-- Indeksy dla zrzutów tabel
 --
 
 --
--- Indexes for table `dokumenty`
+-- Indeksy dla tabeli `dokumenty`
 --
 ALTER TABLE `dokumenty`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `faktury`
+-- Indeksy dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
   ADD PRIMARY KEY (`id`),
@@ -270,19 +301,19 @@ ALTER TABLE `faktury`
   ADD KEY `id_dokumentu` (`id_dokumentu`);
 
 --
--- Indexes for table `kategorie_faktur`
+-- Indeksy dla tabeli `kategorie_faktur`
 --
 ALTER TABLE `kategorie_faktur`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kontrahenci`
+-- Indeksy dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `licencje`
+-- Indeksy dla tabeli `licencje`
 --
 ALTER TABLE `licencje`
   ADD PRIMARY KEY (`id`),
@@ -290,13 +321,13 @@ ALTER TABLE `licencje`
   ADD KEY `id_wlasciciela` (`id_wlasciciela`);
 
 --
--- Indexes for table `role`
+-- Indeksy dla tabeli `role`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sprzety`
+-- Indeksy dla tabeli `sprzety`
 --
 ALTER TABLE `sprzety`
   ADD PRIMARY KEY (`id`),
@@ -304,14 +335,14 @@ ALTER TABLE `sprzety`
   ADD KEY `id_wlasciciela` (`id_wlasciciela`);
 
 --
--- Indexes for table `uzytkownicy`
+-- Indeksy dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_roli` (`id_roli`);
 
 --
--- Indexes for table `waluty`
+-- Indeksy dla tabeli `waluty`
 --
 ALTER TABLE `waluty`
   ADD PRIMARY KEY (`id`);
@@ -321,65 +352,65 @@ ALTER TABLE `waluty`
 --
 
 --
--- AUTO_INCREMENT for table `dokumenty`
+-- AUTO_INCREMENT dla tabeli `dokumenty`
 --
 ALTER TABLE `dokumenty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `faktury`
+-- AUTO_INCREMENT dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `kategorie_faktur`
+-- AUTO_INCREMENT dla tabeli `kategorie_faktur`
 --
 ALTER TABLE `kategorie_faktur`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `kontrahenci`
+-- AUTO_INCREMENT dla tabeli `kontrahenci`
 --
 ALTER TABLE `kontrahenci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `licencje`
+-- AUTO_INCREMENT dla tabeli `licencje`
 --
 ALTER TABLE `licencje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `role`
+-- AUTO_INCREMENT dla tabeli `role`
 --
 ALTER TABLE `role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `sprzety`
+-- AUTO_INCREMENT dla tabeli `sprzety`
 --
 ALTER TABLE `sprzety`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `uzytkownicy`
+-- AUTO_INCREMENT dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `waluty`
+-- AUTO_INCREMENT dla tabeli `waluty`
 --
 ALTER TABLE `waluty`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Constraints for dumped tables
+-- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Constraints for table `faktury`
+-- Ograniczenia dla tabeli `faktury`
 --
 ALTER TABLE `faktury`
   ADD CONSTRAINT `faktury_ibfk_1` FOREIGN KEY (`kontrahent_id`) REFERENCES `kontrahenci` (`id`),
@@ -388,21 +419,26 @@ ALTER TABLE `faktury`
   ADD CONSTRAINT `faktury_ibfk_4` FOREIGN KEY (`id_dokumentu`) REFERENCES `dokumenty` (`id`);
 
 --
--- Constraints for table `licencje`
+-- Ograniczenia dla tabeli `licencje`
 --
 ALTER TABLE `licencje`
   ADD CONSTRAINT `licencje_ibfk_1` FOREIGN KEY (`id_faktury`) REFERENCES `faktury` (`id`),
   ADD CONSTRAINT `licencje_ibfk_2` FOREIGN KEY (`id_wlasciciela`) REFERENCES `uzytkownicy` (`id`);
 
 --
--- Constraints for table `sprzety`
+-- Ograniczenia dla tabeli `sprzety`
 --
 ALTER TABLE `sprzety`
   ADD CONSTRAINT `sprzety_ibfk_1` FOREIGN KEY (`nr_faktury`) REFERENCES `faktury` (`id`),
   ADD CONSTRAINT `sprzety_ibfk_2` FOREIGN KEY (`id_wlasciciela`) REFERENCES `uzytkownicy` (`id`);
 
 --
--- Constraints for table `uzytkownicy`
+-- Ograniczenia dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   ADD CONSTRAINT `uzytkownicy_ibfk_1` FOREIGN KEY (`id_roli`) REFERENCES `role` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

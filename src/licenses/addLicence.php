@@ -138,9 +138,9 @@ try {
 
         if ($ok == true) {
             if ($conn->query("INSERT INTO licencje VALUES (NULL, '$nr_inwent', '$nazwa', '$opis', '$nr_seryjny', '$data_zakupu', $nr_faktury, '$data_wsparcia', $data_waznosci, '$notatki', '$uzytkownik')")) {
-                header("Location: addLicence.php");
+                header("Location: licencesCatalogPanel.php");
             } else {
-                throw new Exception($connection->error);
+                throw new Exception($conn->error);
             }
 
         }
@@ -387,7 +387,7 @@ try {
 
 <a href="../panel.php"> Wróć do panelu </a>
 
-<a href="licencesCatalogPanel.php"> Cofnij </a>
+<a href="licencesCatalogPanel.php" class="go-back-link"> Cofnij </a>
 
 </body>
 </html>

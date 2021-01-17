@@ -61,7 +61,7 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
     </div>
 
 </form>
-<a href="../panel.php">Wróc do panelu</a>
+<a href="../panel.php" class="go-back-link">Wróc do panelu</a>
 
 <table class="docs-table">
     <tr>
@@ -83,7 +83,7 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
         if ($result->num_rows > 0) {
             while ($data = $result->fetch_assoc()) {
                 array_push($_SESSION['rzad'], $data['id']);
-                echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+                echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
             }
         }
     }

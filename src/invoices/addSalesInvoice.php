@@ -404,7 +404,7 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
     </div>
 
-    <a href="salesInvoicePanel.php"> Wróć do panelu </a>
+    <a href="salesInvoicePanel.php" class="go-back-link"> Wróć do panelu </a>
 
 </main>
 

@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             while ($data = $result->fetch_assoc()) {
                 array_push($_SESSION['rzad'], $data['id']);
-                echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="../documents/showScan.php"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post"><button class="update-button" type="submit" name="id_dokumentu" value=' . $data['id'] . '>wybierz</button></form>' . "</td></tr>";
+                echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="../documents/showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post"><button class="update-button" type="submit" name="id_dokumentu" value=' . $data['id'] . '>wybierz</button></form>' . "</td></tr>";
             }
         }
     }

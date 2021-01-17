@@ -29,8 +29,8 @@ hr {
 .search-bar-section > form {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-by-selection {

@@ -77,7 +77,7 @@ if(isset($_SESSION['fr_rola'])) unset($_SESSION['fr_rola']);
 
     ?>
 
-    <a href="../panel.php"> Wróć do panelu </a>
+    <a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
 </div>
 

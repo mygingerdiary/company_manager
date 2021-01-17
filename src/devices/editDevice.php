@@ -358,7 +358,7 @@ if ($docs_result->num_rows > 0) {
 </div>
 
 
-<a href="../panel.php"> Wróć do panelu </a>
+<a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
 <a href="devicesCatalogPanel.php"> Cofnij </a>
 

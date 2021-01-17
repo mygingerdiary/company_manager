@@ -4,7 +4,7 @@ session_start();
 if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
     header('Location: ../index.php');
 }
-
+require_once('../connect.php');
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 $select_query = "SELECT * FROM sprzety";
 
@@ -113,13 +113,13 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
                     "<p> data zakupu: " . date('d-m-Y', strtotime($data['data_zakupu'])) . "</p>" .
                     "<p> nr faktury: " . $data['nr_faktury'] . "</p>" .
                     "<p> gwarancja do: " . $data['gwarancja_do'] . "</p>" .
-                    "<p> kwota netto: " . $data['netto_pl'] . "</p>" .
+                    "<p> kwota netto: " . $data['netto_pln'] . "</p>" .
                     "<p> notatki: " . $data['notatki'] . "</p>" .
                     "<p> id właściciela: " . $data['id_wlasciciela'] . "</p>";
 
                 echo "<div class='update-section'>";
-                echo "<a class='edit-button delete-button' href='deleteDevice.php?id=" . $data['id'] . "'>Usuń</a>";
-                echo "<a href='edit-button editDevice.php?id=" . $data['id'] . "'>Edytuj</a>";
+                echo "<a class='update-button delete-button' href='deleteDevice.php?id=" . $data['id'] . "'>Usuń</a>";
+                echo "<a class='update-button' href='editDevice.php?id=" . $data['id'] . "'>Edytuj</a>";
                 echo "</div>";
             }
         } elseif (!isset($_SESSION['e_wyszukiwanie']) && isset($search_by) && $search_by == 'search-by-inwentarzowy') {
@@ -148,7 +148,7 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
 
 </div>
 
-<a href="../panel.php"> Wróć do panelu </a>
+<a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
 </body>
 </html>

@@ -11,7 +11,7 @@
 <body>
 
 <h2 class="naglowek">Nie masz odpowiedniej roli</h2>
-<a href="panel.php"> Wróć do panelu </a>
+<a href="panel.php" class="go-back-link"> Wróć do panelu </a>
 
 </body>
 </html>

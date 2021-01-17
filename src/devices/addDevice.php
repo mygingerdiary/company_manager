@@ -116,7 +116,7 @@ try {
     $conn = @new mysqli($host, $db_user, $db_password, $db_name);
 
     if ($conn->connect_errno != 0) {
-        echo "ERROR: " . $polaczenie->connect_errno;
+        echo "ERROR: " . $conn->connect_errno;
     } else {
         $results_u = $conn->query('SELECT * FROM uzytkownicy');
 
@@ -124,9 +124,9 @@ try {
 
         if ($ok == true) {
             if ($conn->query("INSERT INTO sprzety VALUES (NULL, '$nr_inwent', '$nazwa', '$opis', '$nr_seryjny', '$data_zakupu', $nr_faktury, '$data_gwarancji', '$wartosc_netto', '$notatki', '$uzytkownik')")) {
-                header("Location: addDevice.php");
+                header("Location: devicesCatalogPanel.php");
             } else {
-                throw new Exception($connection->error);
+                throw new Exception($conn->error);
             }
         }
     }
@@ -327,7 +327,7 @@ try {
 </div>
 
 
-<a href="../panel.php"> Wróć do panelu </a>
+<a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
 <a href="devicesCatalogPanel.php"> Cofnij </a>
 

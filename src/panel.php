@@ -57,7 +57,11 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
                 <i class="fa fa-angle-right"></i>
             </button>
             <button class="panel-button" onclick="window.location.href = 'licenses/licencesCatalogPanel.php';">
-                <span>podsystem licecji</span>
+                <span>podsystem licencji</span>
+                <i class="fa fa-angle-right"></i>
+            </button>
+            <button class="panel-button" onclick="window.location.href = 'statistic/stats.php';">
+                <span>statystyki</span>
                 <i class="fa fa-angle-right"></i>
             </button>
 

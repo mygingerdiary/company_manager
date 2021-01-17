@@ -90,7 +90,7 @@ if (isset($_POST['upload'])) {
             <input type="file" name="image" required>
             <?php
             if (isset($_SESSION['e_plik'])) {
-                echo '<div class="error2">' . $_SESSION['e_plik'] . '</div>';
+                echo '<div class="error">' . $_SESSION['e_plik'] . '</div>';
                 unset($_SESSION['e_plik']);
             }
             ?>
@@ -108,8 +108,7 @@ if (isset($_POST['upload'])) {
                        unset($_SESSION['fr_l_stron']);
                    }
                    ?>">
-            <textarea rows="4" cols="30" name="notatki" placeholder="...">
-            <?php
+            <textarea rows="4" cols="30" name="notatki" placeholder="..."><?php
             if (isset($_SESSION['fr_notatki'])) {
                 echo $_SESSION['fr_notatki'];
                 unset($_SESSION['fr_notatki']);
@@ -128,7 +127,7 @@ if (isset($_POST['upload'])) {
 
 <a href="documentsSystem.php">Cofnij</a>
 <br>
-<a href="../panel.php">Wróc do panelu</a>
+<a href="../panel.php" class="go-back-link">Wróc do panelu</a>
 
 <!--
 <?php

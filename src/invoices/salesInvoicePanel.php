@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="search-bar-section">
         <form method="post">
-            <input type="text" placeholder="szukana fraza..." name="search-phrase">
+            <input type="search" placeholder="szukana fraza..." name="search-phrase">
             <div class="search-by-selection">
                 <p>Szukaj po:</p>
 
@@ -265,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             if ($dokument_result->num_rows > 0) {
                                 while ($dokument_data = $dokument_result->fetch_assoc()) {
-                                    echo "<p>Skan faktury: " . $dokument_data['id'] . ", " . $dokument_data['data'] . ", " . $dokument_data['l_stron'] . ", " . $dokument_data['notatki'] . ", " . '<form method="post" action="showSingleScan.php?id=' . $dokument_id . '"><input type="submit" name="' . $dokument_data['id'] . '" value="otwórz skan"></form>' . "</p>";
+                                    echo "<p>Skan faktury: " . $dokument_data['id'] . ", " . $dokument_data['data'] . ", " . $dokument_data['l_stron'] . ", " . $dokument_data['notatki'] . ", " . '<form method="post" action="showSingleScan.php?id=' . $dokument_id . '" target="_blank"><input type="submit" name="' . $dokument_data['id'] . '" value="otwórz skan"></form>' . "</p>";
                                 }
                             }
 
@@ -288,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </div>
 
-    <a href="../panel.php"> Wróć do panelu </a>
+    <a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 </main>
 
 <script>

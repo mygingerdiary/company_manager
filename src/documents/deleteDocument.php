@@ -14,11 +14,18 @@ if (!isset($_SESSION['rola_uzytkownika']) || $_SESSION['rola_uzytkownika'] == 'a
 require_once('../connect.php');
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-for($i = 0 ; $i < count($_SESSION['rzad']) ; $i++) {
-    if (isset($_POST[$_SESSION['rzad'][$i]])) {
-        $ktore = $_SESSION['rzad'][$i];
-        $sql2 = @$db->query("DELETE FROM dokumenty WHERE id=$ktore");
-        header('Location: documentsSystem.php');
+if ($db->connect_errno != 0) {
+    echo "ERROR: " . $db->connect_errno;
+}
+else {
+    for ($i = 0; $i < count($_SESSION['rzad']); $i++) {
+        if (isset($_POST[$_SESSION['rzad'][$i]])) {
+            $ktore = $_SESSION['rzad'][$i];
+            echo "<script>console.log('$ktore');</script>";
+            $sql1=$db->query("UPDATE faktury SET id_dokumentu=NULL WHERE id_dokumentu=$ktore");
+            $sql2 = $db->query("DELETE FROM dokumenty WHERE id=$ktore");
+            header('Location: documentsSystem.php');
+        }
     }
 }
 ?>
