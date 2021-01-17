@@ -157,6 +157,10 @@ ol.invoice-list > li + li {
     font-size: 16px;
 }
 
+.update-button:hover {
+    cursor: pointer;
+}
+
 .delete-button {
     background-color: #f44336;
 }

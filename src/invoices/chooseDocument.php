@@ -44,40 +44,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Company Manager</title>
-    <link href="../../css/style_inside.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        table, td, th, tr {
-            border: 1px solid black;
-            border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: auto;
-            text-align: center;
-        }
-
-    </style>
+    <link href="../../css/panel.css" type="text/css" rel="stylesheet">
+    <link href="../../css/invoices_panel.css" type="text/css" rel="stylesheet">
+    <link href="../../css/table.css" type="text/css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
 <h1>Dokumenty</h1>
-<button id="addDoc" onclick="window.location.href='../documents/addDocument.php'">Dodaj dokument</button>
+<button id="addDoc" class="transparent-button" onclick="window.location.href='../documents/addDocument.php'">Dodaj
+    dokument <i
+            class="fas fa-plus"></i></button>
 <form class="search" method="post" action="documentsSystem.php">
     <input type="text" name="napis" placeholder="Wyszukaj...">
     <button type="submit" name="submit"><i class="fa fa-search"></i></button>
 
 </form>
 
-<table style="width:1100px">
+<table class="docs-table">
     <tr>
         <th>Id</th>
         <th>Data</th>
         <th>Liczba stron</th>
         <th>Notatki</th>
         <th>Skany</th>
+        <th>Potwierdź</th>
     </tr>
     <?php
-    $db = mysqli_connect("localhost", "root", "admin", "company_manager");
+    require_once('../connect.php');
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
 
     if (!isset($_POST['submit'])) {
         $_SESSION['rzad'] = array();
@@ -87,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             while ($data = $result->fetch_assoc()) {
                 array_push($_SESSION['rzad'], $data['id']);
-                echo "<tr><th>" . $data['id'] . "</th><th>" . date('d-m-Y', strtotime($data['data'])) . "</th><th>" . $data['l_stron'] . "</th><th>" . $data['notatki'] . "</th><th>" . '<form method="post" action="../documents/showScan.php"><input type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</th><th>" . '<form method="post"><button type="submit" name="id_dokumentu" value=' . $data['id'] . '>wybierz</button></form>' . "</td></tr>";
+                echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="../documents/showScan.php"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post"><button class="update-button" type="submit" name="id_dokumentu" value=' . $data['id'] . '>wybierz</button></form>' . "</td></tr>";
             }
         }
     }
@@ -103,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result2 = mysqli_query($db, $sql);
             if ($result2->num_rows > 0) {
                 while ($row = $result2->fetch_assoc()) {
-                    echo "<tr><th>" . $row['id'] . "</th><th>" . date('d-m-Y', strtotime($row['data'])) . "</th><th>" . $row['l_stron'] . "</th><th>" . $row['notatki'] . "</th><th>" . '<form method="post" action="../documents/showScan.php"><input type="submit" name="' . $row['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                    echo "<tr><td>" . $row['id'] . "</td><td>" . date('d-m-Y', strtotime($row['data'])) . "</td><td>" . $row['l_stron'] . "</td><td>" . $row['notatki'] . "</td><td>" . '<form method="post" action="../documents/showScan.php"><input class="transparent-button" type="submit" name="' . $row['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
                 }
             } else {
                 echo "</table>";

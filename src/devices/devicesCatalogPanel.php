@@ -67,11 +67,14 @@ if (isset($_POST['submit']) && !isset($_POST['search-by']) && strlen($_POST['nap
 </head>
 <body>
 
+<h1>Podsystem katalogów sprzętu</h1>
+
 <form method="post" action="devicesCatalogPanel.php">
     <input type="text" placeholder="szukana fraza..." name="napis">
     <button type="submit" name="submit"><i class="fa fa-search"></i></button>
-    <p>Szukaj po:</p>
-    <div>
+    <div class="search-by-selection">
+        <p>Szukaj po:</p>
+
         <input type='radio' name='search-by' value='search-by-inwentarzowy' id="search-by-inwentarzowy"/>
         <label for="search-by-inwentarzowy">nr inwentarzowy</label>
 
