@@ -128,9 +128,9 @@ if (isset($_POST['upload'])) {
 
 </div>
 
-<a href="documentsSystem.php">Cofnij</a>
-<br>
 <a href="../panel.php" class="go-back-link">Wróc do panelu</a>
+
+<a href="documentsSystem.php" class="go-back-link" >Cofnij</a>
 
 <form method="POST">
     <input type="hidden" name="word" value="<?php $ktore; ?>"/>

@@ -200,7 +200,7 @@ try {
                     }
                     ?></textarea>
                 <br/>
-                *pole może pozostać puste
+                <span class="empty-notice">*pole może pozostać puste</span>
             </p>
 
             <p>
@@ -274,7 +274,7 @@ try {
 
             <p>
                 Wartość netto:
-                <input type="number" step="0.01" name="wartosc_netto" value="<?php
+                <input type="number" step="0.01" min="0" name="wartosc_netto" value="<?php
                 if (isset($_SESSION['fr_wartosc_netto'])) {
                     echo $_SESSION['fr_wartosc_netto'];
                     unset($_SESSION['fr_wartosc_netto']);
@@ -317,7 +317,7 @@ try {
                     }
                     ?></textarea>
                 <br/>
-                *pole może pozostać puste
+                <span class="empty-notice">*pole może pozostać puste</span>
             </p>
 
             <input class="transparent-button" type="submit" value="Dodaj sprzęt">
@@ -329,7 +329,7 @@ try {
 
 <a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
-<a href="devicesCatalogPanel.php"> Cofnij </a>
+<a href="devicesCatalogPanel.php" class="go-back-link"> Cofnij </a>
 
 </body>
 </html>

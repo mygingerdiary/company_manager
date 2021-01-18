@@ -432,7 +432,7 @@ if ($_SESSION[REMEMBER_LICENCJA] == NULL) {
 
 <a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
-<a href="licencesCatalogPanel.php"> Cofnij </a>
+<a href="licencesCatalogPanel.php" class="go-back-link"> Cofnij </a>
 
 </body>
 </html>

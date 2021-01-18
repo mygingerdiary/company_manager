@@ -52,3 +52,7 @@
 {
     visibility: hidden;
 }
+
+.empty-notice {
+    font-size: 0.8rem;
+}

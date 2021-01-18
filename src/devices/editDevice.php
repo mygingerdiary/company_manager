@@ -360,7 +360,7 @@ if ($docs_result->num_rows > 0) {
 
 <a href="../panel.php" class="go-back-link"> Wróć do panelu </a>
 
-<a href="devicesCatalogPanel.php"> Cofnij </a>
+<a href="devicesCatalogPanel.php" class="go-back-link"> Cofnij </a>
 
 </body>
 </html>
