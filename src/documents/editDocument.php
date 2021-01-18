@@ -70,6 +70,8 @@ if (isset($_POST['upload'])) {
         }
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +97,7 @@ if (isset($_POST['upload'])) {
                 unset($_SESSION['e_plik']);
             }
             ?>
-            <input type="date" name="data" placeholder="data" value= <?php
+            <input type="date" name="data" placeholder="data" max="<?php echo date("Y-m-d"); ?>" value= <?php
             if (isset($_SESSION[REMEMBER_DATA])) {
                 echo $_SESSION[REMEMBER_DATA];
                 unset($_SESSION[REMEMBER_DATA]);
