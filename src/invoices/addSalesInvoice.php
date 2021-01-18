@@ -271,7 +271,7 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
                 <p>
                     Kwota netto:
-                    <input type="text" name="netto" placeholder="netto" value="<?php
+                    <input type="number" step="0.01" min="0" name="netto" placeholder="netto" value="<?php
                     if (isset($_SESSION[REMEMBER_NETTO])) {
                         echo $_SESSION[REMEMBER_NETTO];
                         unset($_SESSION[REMEMBER_NETTO]);
@@ -287,7 +287,7 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
                 <p>
                     Kwota netto w PLN:
-                    <input type="text" name="netto_pln" placeholder="netto_pln" value="<?php
+                    <input type="number" step="0.01" min="0" name="netto_pln" placeholder="netto_pln" value="<?php
                     if (isset($_SESSION[REMEMBER_NETTO_PLN])) {
                         echo $_SESSION[REMEMBER_NETTO_PLN];
                         unset($_SESSION[REMEMBER_NETTO_PLN]);
@@ -303,7 +303,7 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
                 <p>
                     Vat:
-                    <input type="text" name="vat" placeholder="vat" value="<?php
+                    <input type="number" step="1" min="1" max="100" name="vat" placeholder="vat" value="<?php
                     if (isset($_SESSION[REMEMBER_VAT])) {
                         echo $_SESSION[REMEMBER_VAT];
                         unset($_SESSION[REMEMBER_VAT]);
@@ -319,7 +319,7 @@ function add_contractor_if_not_existing($conn, $nazwa_kontrahenta, $vat_kontrahe
 
                 <p>
                     Kwota brutto:
-                    <input type="text" name="brutto" placeholder="brutto" value="<?php
+                    <input type="number" step="0.01" min="0" name="brutto" placeholder="brutto" value="<?php
                     if (isset($_SESSION[REMEMBER_BRUTTO])) {
                         echo $_SESSION[REMEMBER_BRUTTO];
                         unset($_SESSION[REMEMBER_BRUTTO]);

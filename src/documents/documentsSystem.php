@@ -52,7 +52,7 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
         <select class="form-control" name="year">
             <option value="" disabled selected>Wybierz rok</option>
             <?php
-            foreach (range(1950, (int)date("Y")) as $yearr) {
+            foreach (range(2000, (int)date("Y")) as $yearr) {
                 echo "<option value='" . $yearr . "'>" . $yearr . "</option>";
             }
 
@@ -108,8 +108,23 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql);
             $result2 = mysqli_query($db, $sql);
             if ($result2->num_rows > 0) {
-                while ($row = $result2->fetch_assoc()) {
-                    echo "<tr><td>" . $row['id'] . "</td><td>" . date('d-m-Y', strtotime($row['data'])) . "</td><td>" . $row['l_stron'] . "</td><td>" . $row['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $row['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data = $result2->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+                }
+
+            } else {
+                echo "</table>";
+                echo "Brak wyszukiwań";
+            }
+        }
+        if ($idd == 0 && is_int($idd) && empty($year) && empty($month)) {
+
+            $sql = "SELECT * FROM dokumenty";
+            mysqli_query($db, $sql);
+            $result2 = mysqli_query($db, $sql);
+            if ($result2->num_rows > 0) {
+                while ($data = $result2->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
                 }
 
             } else {
@@ -126,8 +141,8 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql2);
             $result3 = mysqli_query($db, $sql2);
             if ($result3->num_rows > 0) {
-                while ($row = $result3->fetch_assoc()) {
-                    echo "<tr><td>" . $row['id'] . "</td><td>" . date('d-m-Y', strtotime($row['data'])) . "</td><td>" . $row['l_stron'] . "</td><td>" . $row['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $row['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data = $result3->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
                 }
 
             } else {
@@ -146,8 +161,9 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql2);
             $result3 = mysqli_query($db, $sql2);
             if ($result3->num_rows > 0) {
-                while ($row = $result3->fetch_assoc()) {
-                    echo "<tr><td>" . $row['id'] . "</td><td>" . date('d-m-Y', strtotime($row['data'])) . "</td><td>" . $row['l_stron'] . "</td><td>" . $row['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $row['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data = $result3->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+
                 }
 
             } else {
@@ -164,8 +180,9 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql3);
             $result4 = mysqli_query($db, $sql3);
             if ($result4->num_rows > 0) {
-                while ($row2 = $result4->fetch_assoc()) {
-                    echo "<tr><td>" . $row2['id'] . "</td><td>" . date('d-m-Y', strtotime($row2['data'])) . "</td><td>" . $row2['l_stron'] . "</td><td>" . $row2['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $row2['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data = $result4->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+
                 }
 
             } else {
@@ -181,8 +198,9 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql2);
             $result3 = mysqli_query($db, $sql2);
             if ($result3->num_rows > 0) {
-                while ($roww = $result3->fetch_assoc()) {
-                    echo "<tr><td>" . $roww['id'] . "</td><td>" . date('d-m-Y', strtotime($roww['data'])) . "</td><td>" . $roww['l_stron'] . "</td><td>" . $roww['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $roww['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data= $result3->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+
                 }
 
             } else {
@@ -197,8 +215,9 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql2);
             $result3 = mysqli_query($db, $sql2);
             if ($result3->num_rows > 0) {
-                while ($roww = $result3->fetch_assoc()) {
-                    echo "<tr><td>" . $roww['id'] . "</td><td>" . date('d-m-Y', strtotime($roww['data'])) . "</td><td>" . $roww['l_stron'] . "</td><td>" . $roww['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $roww['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data = $result3->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+
                 }
 
             } else {
@@ -212,8 +231,10 @@ if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
             mysqli_query($db, $sql2);
             $result3 = mysqli_query($db, $sql2);
             if ($result3->num_rows > 0) {
-                while ($roww = $result3->fetch_assoc()) {
-                    echo "<tr><td>" . $roww['id'] . "</td><td>" . date('d-m-Y', strtotime($roww['data'])) . "</td><td>" . $roww['l_stron'] . "</td><td>" . $roww['notatki'] . "</td><td>" . '<form method="post" action="showScan.php"><input type="submit" name="' . $roww['id'] . '" value="otwórz skan"></form>' . "</td></tr>";
+                while ($data = $result3->fetch_assoc()) {
+                    echo "<tr><td>" . $data['id'] . "</td><td>" . date('d-m-Y', strtotime($data['data'])) . "</td><td>" . $data['l_stron'] . "</td><td>" . $data['notatki'] . "</td><td>" . '<form method="post" action="showScan.php" target="_blank"><input class="transparent-button" type="submit" name="' . $data['id'] . '" value="otwórz skan"></form>' . "</td><td>" . '<form method="post" action="deleteDocument.php"><input class="update-button delete-button" type="submit" name="' . $data['id'] . '" value="Usuń"></form>' . '<form method="post" action="editDocument.php"><input class="update-button" type="submit" name="' . $data['id'] . '" value="Edytuj"></form>' . "</td></tr>";
+
+
                 }
 
             } else {

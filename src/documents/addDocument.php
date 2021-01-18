@@ -94,7 +94,7 @@ if (isset($_POST['upload'])) {
                 unset($_SESSION['e_plik']);
             }
             ?>
-            <input type="date" name="data" placeholder="data" max="` + today + `" required
+            <input type="date" name="data" placeholder="data" max="<?php echo date("Y-m-d"); ?>" required
                    value="<?php
                    if (isset($_SESSION['fr_data'])) {
                        echo $_SESSION['fr_data'];
@@ -125,9 +125,9 @@ if (isset($_POST['upload'])) {
 
 </div>
 
-<a href="documentsSystem.php">Cofnij</a>
-<br>
 <a href="../panel.php" class="go-back-link">Wróc do panelu</a>
+
+<a href="documentsSystem.php" class="go-back-link">Cofnij</a>
 
 <!--
 <?php

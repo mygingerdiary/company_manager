@@ -70,6 +70,8 @@ if (isset($_POST['upload'])) {
         }
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +97,7 @@ if (isset($_POST['upload'])) {
                 unset($_SESSION['e_plik']);
             }
             ?>
-            <input type="date" name="data" placeholder="data" value= <?php
+            <input type="date" name="data" placeholder="data" max="<?php echo date("Y-m-d"); ?>" value= <?php
             if (isset($_SESSION[REMEMBER_DATA])) {
                 echo $_SESSION[REMEMBER_DATA];
                 unset($_SESSION[REMEMBER_DATA]);
@@ -109,15 +111,14 @@ if (isset($_POST['upload'])) {
             }
             ?> required>
 
-            <textarea rows="4" cols="30" name="notatki" placeholder="...">
-            <?php
+            <textarea rows="4" cols="30" name="notatki" placeholder="..."><?php
             if (isset($_SESSION[REMEMBER_NOTATKI])) {
                 echo htmlspecialchars($_SESSION[REMEMBER_NOTATKI]);
                 unset($_SESSION[REMEMBER_NOTATKI]);
             }
             ?>
 </textarea>
-            <button type="submit" name="upload">Zaktualizuj</button>
+            <button type="submit" class="transparent-button" name="upload">Aktualizuj</button>
         </form>
     </div>
 
@@ -128,9 +129,9 @@ if (isset($_POST['upload'])) {
 
 </div>
 
-<a href="documentsSystem.php">Cofnij</a>
-<br>
 <a href="../panel.php" class="go-back-link">Wróc do panelu</a>
+
+<a href="documentsSystem.php" class="go-back-link" >Cofnij</a>
 
 <form method="POST">
     <input type="hidden" name="word" value="<?php $ktore; ?>"/>

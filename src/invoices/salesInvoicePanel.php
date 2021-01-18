@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 
 if ((!isset($_SESSION['zalogowany'])) || ($_SESSION['zalogowany'] == false)) {
     header('Location: ../index.php');
@@ -263,15 +264,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 "<p> Nazwa kontrahenta: " . $kontrahent_name . "</p>" .
                                 "<p> Vat kontrahenta: " . $kontrahent_vat . "</p>";
 
-                            if ($dokument_result->num_rows > 0) {
+                            if ($dokument_result != null && $dokument_result->num_rows > 0) {
                                 while ($dokument_data = $dokument_result->fetch_assoc()) {
                                     echo "<p>Skan faktury: " . $dokument_data['id'] . ", " . $dokument_data['data'] . ", " . $dokument_data['l_stron'] . ", " . $dokument_data['notatki'] . ", " . '<form method="post" action="showSingleScan.php?id=' . $dokument_id . '" target="_blank"><input type="submit" name="' . $dokument_data['id'] . '" value="otwórz skan"></form>' . "</p>";
                                 }
                             }
 
                             echo "<div class='update-section'>";
-                            echo "<a class='update-button' href='updateInvoice.php?id=" . $data['id'] . "'>Update</a>";
                             echo "<a class='update-button delete-button' href='deleteInvoice.php?id=" . $data['id'] . "'>Usuń</a>";
+                            echo "<a class='update-button' href='updateInvoice.php?id=" . $data['id'] . "'>Edytuj</a>";
                             echo "</div>";
 
                             echo "</li>" . "\n";
