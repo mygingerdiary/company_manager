@@ -167,10 +167,11 @@ try {
 <body>
 
 <script type="text/javascript">
-    window.onload = checkVisibility;
+    //window.onload = checkVisibility;
 
     function checkVisibility() {
         if (document.getElementById("data").checked) {
+            console.log("DATA");
             document.getElementById("data_waznosci").style = "visibility: visible;";
         } else if (document.getElementById("bezterminowo").checked) {
             document.getElementById("data_waznosci").style = "visibility: hidden;";
@@ -191,7 +192,7 @@ try {
         <form method="post">
 
             <p>
-                Numer inwentarzowy
+                Numer inwentarzowy:
                 <label>
                     <input type="text" name="nr_inwent" value="<?php
                     if (isset($_SESSION['fr_nr_inwent'])) {
@@ -312,8 +313,7 @@ try {
 
             <p id="waznosc_licencji">
                 Licencja ważna do:
-                <input type="radio" id="bezterminowo" name="waznosc_licencji" value="bezterminowo" id="bezterminowo"
-                       onclick="checkVisibility()"
+                <input type="radio" id="bezterminowo" name="waznosc_licencji" value="bezterminowo" onclick="checkVisibility()"
                     <?php
                     if (isset($_SESSION['fr_waznosc_opcja']) && $_SESSION['fr_waznosc_opcja'] == "bezterminowo") {
                         echo "checked";
@@ -322,7 +322,7 @@ try {
                     ?>
                 >
                 <label for="bezterminowo">bezterminowo</label>
-                <input type="radio" id="data" name="waznosc_licencji" value="data" id="data" onclick="checkVisibility()"
+                <input type="radio" id="data" name="waznosc_licencji" value="data" onclick="checkVisibility()"
                     <?php
                     if (isset($_SESSION['fr_waznosc_opcja']) && $_SESSION['fr_waznosc_opcja'] == "data") {
                         echo "checked";

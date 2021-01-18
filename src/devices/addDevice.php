@@ -157,7 +157,7 @@ try {
     <div class="input-section">
         <form method="post">
             <p>
-                Numer inwentarzowy
+                Numer inwentarzowy:
                 <input type="text" name="nr_inwent" value="<?php
                 if (isset($_SESSION['fr_nr_inwent'])) {
                     echo $_SESSION['fr_nr_inwent'];

@@ -42,3 +42,13 @@
 .type-of-user > input {
     margin-left: 2rem;
 }
+
+#data_waznosci
+{
+    visibility: hidden;
+}
+
+#haslo
+{
+    visibility: hidden;
+}
