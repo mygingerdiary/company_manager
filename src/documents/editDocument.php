@@ -116,7 +116,7 @@ if (isset($_POST['upload'])) {
             }
             ?>
 </textarea>
-            <button type="submit" name="upload">Zaktualizuj</button>
+            <button type="submit" class="transparent-button" name="upload">Aktualizuj</button>
         </form>
     </div>
 

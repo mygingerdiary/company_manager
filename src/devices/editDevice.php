@@ -338,8 +338,7 @@ if ($docs_result->num_rows > 0) {
             <p>
                 Notatki:
                 <br/>
-                <textarea rows="4" cols="50" maxlength="1000" name="notatki">
-           <?php
+                <textarea rows="4" cols="50" maxlength="1000" name="notatki"><?php
            if (isset($_SESSION[REMEMBER_NOTATKI])) {
                echo $_SESSION[REMEMBER_NOTATKI];
                unset($_SESSION[REMEMBER_NOTATKI]);
@@ -349,7 +348,7 @@ if ($docs_result->num_rows > 0) {
                 *pole może pozostać puste
             </p>
 
-            <input class="transparent-button" type="submit" value="Zaktualizuj sprzęt">
+            <input class="transparent-button" type="submit" value="Aktualizuj">
 
         </form>
 

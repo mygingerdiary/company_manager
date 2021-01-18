@@ -410,8 +410,7 @@ if ($_SESSION[REMEMBER_LICENCJA] == NULL) {
             <p>
                 Notatki:
                 <br/>
-                <textarea rows="4" cols="50" maxlength="1000" name="notatki">
-           <?php
+                <textarea rows="4" cols="50" maxlength="1000" name="notatki"><?php
            if (isset($_SESSION[REMEMBER_NOTATKI])) {
                echo $_SESSION[REMEMBER_NOTATKI];
                unset($_SESSION[REMEMBER_NOTATKI]);
@@ -421,7 +420,7 @@ if ($_SESSION[REMEMBER_LICENCJA] == NULL) {
                 *pole może pozostać puste
             </p>
 
-            <input type="submit" value="Dodaj licencję">
+            <input type="submit" class="transparent-button" value="Aktualizuj">
 
         </form>
     </div>
