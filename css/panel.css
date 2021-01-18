@@ -141,3 +141,8 @@ textarea
 .show-password-button {
     width: 7rem;
 }
+
+#podsumowanie_header
+{
+    font-weight: bold;
+}

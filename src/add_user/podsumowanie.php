@@ -55,7 +55,7 @@ if (isset($_SESSION['fr_rola'])) unset($_SESSION['fr_rola']);
 
     <div class="button-section">
 
-    <p> Oto jego dane:</p>
+    <p id="podsumowanie_header"> Oto jego dane:</p>
 
     <?php
     echo "<p>Imię: " . $_SESSION['r_imie'] . "</p>";
