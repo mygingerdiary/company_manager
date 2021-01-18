@@ -271,8 +271,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             }
 
                             echo "<div class='update-section'>";
-                            echo "<a class='update-button' href='updateInvoice.php?id=" . $data['id'] . "'>Update</a>";
                             echo "<a class='update-button delete-button' href='deleteInvoice.php?id=" . $data['id'] . "'>Usuń</a>";
+                            echo "<a class='update-button' href='updateInvoice.php?id=" . $data['id'] . "'>Edytuj</a>";
                             echo "</div>";
 
                             echo "</li>" . "\n";

@@ -109,8 +109,7 @@ if (isset($_POST['upload'])) {
             }
             ?> required>
 
-            <textarea rows="4" cols="30" name="notatki" placeholder="...">
-            <?php
+            <textarea rows="4" cols="30" name="notatki" placeholder="..."><?php
             if (isset($_SESSION[REMEMBER_NOTATKI])) {
                 echo htmlspecialchars($_SESSION[REMEMBER_NOTATKI]);
                 unset($_SESSION[REMEMBER_NOTATKI]);
